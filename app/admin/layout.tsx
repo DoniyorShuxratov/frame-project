@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navItems = [
   {
@@ -42,6 +42,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Guard: verify admin role client-side on every admin page
+  useEffect(() => {
+    if (pathname === "/admin/login") return;
+    const supabase = createClient();
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) { router.replace("/admin/login"); return; }
+      const { data } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+      if (data?.role !== "admin") { router.replace("/admin/login"); }
+    });
+  }, [pathname, router]);
 
   async function handleLogout() {
     const supabase = createClient();
