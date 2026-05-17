@@ -51,6 +51,20 @@ export default function HomePage() {
 
   return (
     <div className="max-w-7xl mx-auto px-ds-4 sm:px-ds-6 lg:px-ds-8 py-ds-10">
+
+      {/* Banner */}
+      <Link href="/products" className="block mb-ds-10 rounded-xl overflow-hidden">
+        <div className="relative w-full" style={{ aspectRatio: "1390 / 430" }}>
+          <Image
+            src="/images/banner-1.png"
+            alt="Shop banner"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      </Link>
+
       {/* Header */}
       <div className="flex items-center justify-between mb-ds-8">
         <div>
@@ -104,7 +118,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-ds-6">
           {filtered.map((product) => (
             <Link key={product.id} href={`/products/${product.id}`} className="group block">
-              <div className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+              <div className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden transition-colors">
                 <div className="relative aspect-[3/4] bg-surface-item overflow-hidden rounded-t-xl">
                   <Image
                     src={product.image_url}

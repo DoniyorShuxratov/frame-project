@@ -123,7 +123,7 @@ export default function LoginPage() {
         style={{ zIndex: 2 }}
       >
         <div
-          className="bg-white rounded-2xl shadow-xl flex flex-col w-full"
+          className="bg-white rounded-2xl flex flex-col w-full"
           style={{ maxWidth: 520, padding: "clamp(28px, 5vw, 48px)" }}
         >
           <span style={{

@@ -183,7 +183,7 @@ export default function ProductsPage() {
 
         {mobileFilterOpen && (
           <div className="fixed inset-0 z-40 bg-black/40 md:hidden" onClick={() => setMobileFilterOpen(false)}>
-            <div className="absolute left-0 top-0 h-full w-72 bg-surface-card p-ds-6 overflow-y-auto shadow-lg" onClick={(e) => e.stopPropagation()}>
+            <div className="absolute left-0 top-0 h-full w-72 bg-surface-card p-ds-6 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-between items-center mb-ds-6">
                 <h2 className="font-gilroy font-bold text-h4">Filters</h2>
                 <button onClick={() => setMobileFilterOpen(false)}>
@@ -222,7 +222,7 @@ export default function ProductsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-ds-6">
               {filtered.map((product) => (
                 <Link key={product.id} href={`/products/${product.id}`} className="group block">
-                  <div className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden hover:shadow-md transition-shadow">
+                  <div className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden transition-colors">
                     <div className="relative aspect-[3/4] bg-surface-item overflow-hidden rounded-t-xl">
                       <Image src={product.image_url} alt={product.name} fill
                         sizes="(max-width: 640px) 100vw, 33vw"

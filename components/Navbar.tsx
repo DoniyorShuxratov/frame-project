@@ -110,7 +110,7 @@ export function Navbar() {
                 </button>
 
                 {userMenu && (
-                  <div className="absolute right-0 top-11 w-56 bg-surface-card border border-stroke-default rounded-xl shadow-lg py-1 z-50">
+                  <div className="absolute right-0 top-11 w-56 bg-surface-card border border-stroke-default rounded-xl py-1 z-50">
                     <div className="px-4 py-3 border-b border-stroke-default">
                       <p className="font-gilroy font-semibold text-small text-content-primary truncate">{userEmail}</p>
                       <p className="font-gilroy text-xs text-content-secondary mt-0.5">Customer account</p>
