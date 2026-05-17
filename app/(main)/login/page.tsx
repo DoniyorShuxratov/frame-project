@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -11,6 +11,32 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError]       = useState("");
   const [loading, setLoading]   = useState(false);
+
+  // Parallax state
+  const [parallax, setParallax] = useState(0); // -1 to 1
+  const targetX   = useRef(0);
+  const currentX  = useRef(0);
+  const rafRef    = useRef<number>(0);
+
+  useEffect(() => {
+    function onMouseMove(e: MouseEvent) {
+      targetX.current = (e.clientX / window.innerWidth - 0.5) * 2;
+    }
+
+    function tick() {
+      // Lerp — smooth lag behind cursor
+      currentX.current += (targetX.current - currentX.current) * 0.04;
+      setParallax(currentX.current);
+      rafRef.current = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("mousemove", onMouseMove);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,52 +67,42 @@ export default function LoginPage() {
     boxSizing: "border-box",
   };
 
+  // Parallax multipliers
+  const cloud1X  = parallax * -35;   // clouds drift opposite to mouse
+  const cloud2X  = parallax * -55;   // second layer faster — more depth
+  const modelX   = parallax * 22;    // model follows mouse
+
   return (
     <div
       className="min-h-screen w-full relative overflow-hidden flex items-center justify-center"
       style={{ background: "linear-gradient(135deg, #1B9CFC 0%, #87CEEB 100%)" }}
     >
-      <style>{`
-        @keyframes cloudDrift {
-          0%   { transform: translateX(0px) scale(1); }
-          50%  { transform: translateX(40px) scale(1.03); }
-          100% { transform: translateX(0px) scale(1); }
-        }
-        @keyframes cloudDriftReverse {
-          0%   { transform: translateX(0px) scale(1.02); }
-          50%  { transform: translateX(-50px) scale(1); }
-          100% { transform: translateX(0px) scale(1.02); }
-        }
-        @keyframes cloudFade {
-          0%   { opacity: 0.7; }
-          50%  { opacity: 1; }
-          100% { opacity: 0.7; }
-        }
-      `}</style>
-
-      {/* Clouds layer 1 */}
+      {/* Clouds layer 1 — slow opposite drift */}
       <img
         src="/images/clouds-1.png"
         alt=""
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         style={{
           zIndex: 0,
-          animation: "cloudDrift 30s ease-in-out infinite, cloudFade 20s ease-in-out infinite",
+          transform: `translateX(${cloud1X}px)`,
+          willChange: "transform",
         }}
       />
-      {/* Clouds layer 2 — opposite drift, slightly offset */}
+
+      {/* Clouds layer 2 — faster opposite drift for depth */}
       <img
         src="/images/clouds-2.png"
         alt=""
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
         style={{
           zIndex: 0,
-          opacity: 0.6,
-          animation: "cloudDriftReverse 45s ease-in-out infinite",
+          opacity: 0.65,
+          transform: `translateX(${cloud2X}px)`,
+          willChange: "transform",
         }}
       />
 
-      {/* Model — bottom-left, desktop only */}
+      {/* Model — follows mouse */}
       <img
         src="/images/model.png"
         alt=""
@@ -96,10 +112,12 @@ export default function LoginPage() {
           bottom: -160,
           height: "120vh",
           zIndex: 1,
+          transform: `translateX(${modelX}px)`,
+          willChange: "transform",
         }}
       />
 
-      {/* Card — centered on mobile, right-aligned on desktop */}
+      {/* Card */}
       <div
         className="relative w-full flex items-center justify-center lg:justify-end lg:pr-[6%] px-4 py-8"
         style={{ zIndex: 2 }}
@@ -108,7 +126,6 @@ export default function LoginPage() {
           className="bg-white rounded-2xl shadow-xl flex flex-col w-full"
           style={{ maxWidth: 520, padding: "clamp(28px, 5vw, 48px)" }}
         >
-          {/* Logo */}
           <span style={{
             fontFamily: "Gilroy, system-ui, sans-serif",
             fontWeight: 900,
@@ -122,12 +139,10 @@ export default function LoginPage() {
             FRAME
           </span>
 
-          {/* Sub-heading */}
           <p style={{ fontSize: 14, color: "#9CA3AF", fontFamily: "Gilroy, system-ui, sans-serif", marginBottom: 8 }}>
             Login to
           </p>
 
-          {/* Main heading */}
           <div style={{ marginBottom: 32 }}>
             <div style={{ fontFamily: "Gilroy, system-ui, sans-serif", fontWeight: 900, fontSize: "clamp(36px, 5vw, 48px)", lineHeight: 1.05, color: "#111111" }}>
               Dress for the
@@ -137,7 +152,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col">
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 10 }}>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
@@ -170,7 +184,7 @@ export default function LoginPage() {
               fontWeight: 700,
               fontFamily: "Gilroy, system-ui, sans-serif",
               cursor: loading ? "not-allowed" : "pointer",
-              transition: "opacity 0.15s",
+              transition: "background 0.15s",
               marginBottom: 20,
             }}>
               {loading ? "Logging in…" : "Log in"}
