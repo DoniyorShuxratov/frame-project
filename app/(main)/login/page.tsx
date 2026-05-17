@@ -60,9 +60,9 @@ export default function LoginPage() {
         alt=""
         className="hidden lg:block absolute pointer-events-none select-none object-contain"
         style={{
-          left: 0,
-          bottom: 0,
-          height: "105vh",
+          left: -100,
+          bottom: -160,
+          height: "120vh",
           zIndex: 1,
         }}
       />
