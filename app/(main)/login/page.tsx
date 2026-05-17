@@ -46,12 +46,44 @@ export default function LoginPage() {
       className="min-h-screen w-full relative overflow-hidden flex items-center justify-center"
       style={{ background: "linear-gradient(135deg, #1B9CFC 0%, #87CEEB 100%)" }}
     >
-      {/* Clouds — full background, all screen sizes */}
+      <style>{`
+        @keyframes cloudDrift {
+          0%   { transform: translateX(0px) scale(1); }
+          50%  { transform: translateX(40px) scale(1.03); }
+          100% { transform: translateX(0px) scale(1); }
+        }
+        @keyframes cloudDriftReverse {
+          0%   { transform: translateX(0px) scale(1.02); }
+          50%  { transform: translateX(-50px) scale(1); }
+          100% { transform: translateX(0px) scale(1.02); }
+        }
+        @keyframes cloudFade {
+          0%   { opacity: 0.7; }
+          50%  { opacity: 1; }
+          100% { opacity: 0.7; }
+        }
+      `}</style>
+
+      {/* Clouds layer 1 */}
       <img
         src="/images/clouds-1.png"
         alt=""
         className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
-        style={{ zIndex: 0 }}
+        style={{
+          zIndex: 0,
+          animation: "cloudDrift 30s ease-in-out infinite, cloudFade 20s ease-in-out infinite",
+        }}
+      />
+      {/* Clouds layer 2 — opposite drift, slightly offset */}
+      <img
+        src="/images/clouds-2.png"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+        style={{
+          zIndex: 0,
+          opacity: 0.6,
+          animation: "cloudDriftReverse 45s ease-in-out infinite",
+        }}
       />
 
       {/* Model — bottom-left, desktop only */}
