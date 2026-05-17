@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -13,7 +13,6 @@ const navLinks = [
 
 export function Navbar() {
   const pathname   = usePathname();
-  const router     = useRouter();
   const totalItems = useCartStore((s) => s.getTotalItems());
 
   const [menuOpen,    setMenuOpen]    = useState(false);
