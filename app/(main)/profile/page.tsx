@@ -24,11 +24,11 @@ export default function ProfilePage() {
       if (!user) { router.push("/login"); return; }
       setUserId(user.id);
       setEmail(user.email ?? "");
-      const { data: profile } = await supabase.from("profiles").select("username, avatar_url").eq("id", user.id).maybeSingle();
-      if (profile) {
-        setUsername(profile.username ?? "");
-        setAvatarUrl(profile.avatar_url ?? "");
-      }
+      // Read avatar from auth metadata (no extra DB column needed)
+      setAvatarUrl(user.user_metadata?.avatar_url ?? "");
+      const { data: profile } = await supabase
+        .from("profiles").select("username").eq("id", user.id).maybeSingle();
+      setUsername(profile?.username ?? "");
       setLoading(false);
     }
     load();
@@ -40,11 +40,23 @@ export default function ProfilePage() {
     setSaving(true);
     setError("");
     const supabase = createClient();
-    const { error: updateError } = await supabase.from("profiles")
-      .update({ username: username.trim(), avatar_url: avatarUrl.trim() })
+
+    // Save username to profiles table
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .update({ username: username.trim() })
       .eq("id", userId);
+
+    // Save avatar_url to auth metadata (no schema change required)
+    const { error: metaError } = await supabase.auth.updateUser({
+      data: { avatar_url: avatarUrl.trim() },
+    });
+
     setSaving(false);
-    if (updateError) { setError(updateError.message); return; }
+    if (profileError || metaError) {
+      setError(profileError?.message ?? metaError?.message ?? "Failed to save");
+      return;
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
   }
@@ -123,11 +135,8 @@ export default function ProfilePage() {
         <p className="font-gilroy text-small text-content-secondary mb-ds-4">
           Permanently delete all your order history. This cannot be undone.
         </p>
-        <button
-          onClick={handleClearHistory}
-          disabled={clearing}
-          className="font-gilroy font-semibold text-small text-error border border-error/30 rounded-md px-4 py-2 hover:bg-error-bg transition-colors disabled:opacity-50"
-        >
+        <button onClick={handleClearHistory} disabled={clearing}
+          className="font-gilroy font-semibold text-small text-error border border-error/30 rounded-md px-4 py-2 hover:bg-error-bg transition-colors disabled:opacity-50">
           {clearing ? "Clearing…" : "Clear Order History"}
         </button>
       </div>
