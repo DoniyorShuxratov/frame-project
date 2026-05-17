@@ -150,11 +150,11 @@ export default function ProductsPage() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-ds-4 sm:px-ds-6 lg:px-ds-8 py-ds-10">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-ds-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-ds-6 lg:px-ds-8 py-ds-6 sm:py-ds-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-ds-4 sm:mb-ds-8">
         <div>
-          <h1 className="font-gilroy font-bold text-h1 text-content-primary">Shop All</h1>
-          <p className="text-content-secondary font-gilroy text-body mt-1">
+          <h1 className="font-gilroy font-bold text-h3 sm:text-h1 text-content-primary">Shop All</h1>
+          <p className="text-content-secondary font-gilroy text-small sm:text-body mt-0.5">
             {loading ? "Loading…" : `${filtered.length} product${filtered.length !== 1 ? "s" : ""}`}
           </p>
         </div>
@@ -199,14 +199,14 @@ export default function ProductsPage() {
 
         <div className="flex-1">
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-ds-6">
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-ds-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden animate-pulse">
+                <div key={i} className="bg-surface-card border border-stroke-default rounded-md sm:rounded-xl overflow-hidden animate-pulse">
                   <div className="aspect-[3/4] bg-surface-item" />
-                  <div className="p-ds-4 space-y-2">
-                    <div className="h-3 bg-surface-item rounded w-1/3" />
-                    <div className="h-4 bg-surface-item rounded w-3/4" />
-                    <div className="h-5 bg-surface-item rounded w-1/4" />
+                  <div className="p-2 sm:p-ds-4 space-y-1.5">
+                    <div className="h-2.5 bg-surface-item rounded w-1/3" />
+                    <div className="h-3 bg-surface-item rounded w-3/4" />
+                    <div className="h-4 bg-surface-item rounded w-1/4" />
                   </div>
                 </div>
               ))}
@@ -219,29 +219,29 @@ export default function ProductsPage() {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-ds-6">
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-ds-6">
               {filtered.map((product) => (
                 <Link key={product.id} href={`/products/${product.id}`} className="group block">
-                  <div className="bg-surface-card border border-stroke-default rounded-xl overflow-hidden transition-colors">
-                    <div className="relative aspect-[3/4] bg-surface-item overflow-hidden rounded-t-xl">
+                  <div className="bg-surface-card border border-stroke-default rounded-md sm:rounded-xl overflow-hidden transition-colors">
+                    <div className="relative aspect-[3/4] bg-surface-item overflow-hidden rounded-t-md sm:rounded-t-xl">
                       <Image src={product.image_url} alt={product.name} fill
-                        sizes="(max-width: 640px) 100vw, 33vw"
+                        sizes="(max-width: 640px) 50vw, 33vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-105" />
                       {product.stock < 5 && product.stock > 0 && (
-                        <div className="absolute top-3 left-3"><Badge variant="warning">Low Stock</Badge></div>
+                        <div className="absolute top-2 left-2"><Badge variant="warning">Low Stock</Badge></div>
                       )}
                       {product.stock === 0 && (
-                        <div className="absolute top-3 left-3"><Badge variant="neutral">Sold Out</Badge></div>
+                        <div className="absolute top-2 left-2"><Badge variant="neutral">Sold Out</Badge></div>
                       )}
                       <button onClick={(e) => { e.preventDefault(); quickAdd(product); }}
-                        className="absolute bottom-0 left-0 right-0 bg-brand-primary text-content-inverse font-gilroy font-semibold text-small py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        className="absolute bottom-0 left-0 right-0 bg-brand-primary text-content-inverse font-gilroy font-semibold text-xs sm:text-small py-2 sm:py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                         Quick Add — {product.sizes[0] ?? "One Size"}
                       </button>
                     </div>
-                    <div className="p-ds-4">
-                      <p className="text-xs text-content-secondary font-gilroy uppercase tracking-widest mb-1">{product.category}</p>
-                      <h3 className="text-body font-gilroy font-semibold text-content-primary leading-snug mb-2 line-clamp-2">{product.name}</h3>
-                      <span className="text-h5 font-gilroy font-bold text-content-primary">${product.price.toFixed(2)}</span>
+                    <div className="p-2 sm:p-ds-4">
+                      <p className="text-xs text-content-secondary font-gilroy uppercase tracking-widest mb-0.5 sm:mb-1 truncate">{product.category}</p>
+                      <h3 className="text-xs sm:text-body font-gilroy font-semibold text-content-primary leading-snug mb-1 sm:mb-2 line-clamp-2">{product.name}</h3>
+                      <span className="text-small sm:text-h5 font-gilroy font-bold text-content-primary">${product.price.toFixed(2)}</span>
                     </div>
                   </div>
                 </Link>
