@@ -46,9 +46,7 @@ export function Navbar() {
   async function handleSignOut() {
     const supabase = createClient();
     await supabase.auth.signOut();
-    setUserMenu(false);
-    router.push("/login");
-    router.refresh();
+    window.location.href = "/login";
   }
 
   const initials = userEmail ? userEmail[0].toUpperCase() : null;
