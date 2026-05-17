@@ -39,7 +39,7 @@ export default function LoginPage() {
       <div className="hidden lg:block absolute inset-y-0 left-0 w-[55%] pointer-events-none select-none">
         {/* Clouds */}
         <img
-          src="/images/clouds.png"
+          src="/images/clouds-1.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
