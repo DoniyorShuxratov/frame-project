@@ -116,6 +116,17 @@ export function Navbar() {
                       <p className="font-gilroy text-xs text-content-secondary mt-0.5">Customer account</p>
                     </div>
                     <Link
+                      href="/profile"
+                      onClick={() => setUserMenu(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 font-gilroy text-body text-content-secondary hover:text-content-primary hover:bg-surface-item transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      My Profile
+                    </Link>
+                    <Link
                       href="/orders"
                       onClick={() => setUserMenu(false)}
                       className="flex items-center gap-3 px-4 py-2.5 font-gilroy text-body text-content-secondary hover:text-content-primary hover:bg-surface-item transition-colors"
