@@ -47,8 +47,8 @@ export default function LoginPage() {
         <img
           src="/images/model.png"
           alt=""
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 object-contain"
-          style={{ height: "85vh" }}
+          className="absolute left-1/2 -translate-x-1/2 object-contain"
+          style={{ height: "95vh", bottom: "-2vh" }}
         />
       </div>
 
@@ -56,7 +56,7 @@ export default function LoginPage() {
       <div className="relative z-10 w-full flex items-center justify-center lg:justify-end lg:pr-[7%] px-4 py-10">
         <div
           className="bg-white rounded-2xl shadow-xl flex flex-col w-full"
-          style={{ maxWidth: 420, padding: 48 }}
+          style={{ maxWidth: 520, minWidth: 480, padding: 48 }}
         >
           {/* Logo */}
           <div className="mb-1">
