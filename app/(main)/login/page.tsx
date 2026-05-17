@@ -7,20 +7,18 @@ import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail]     = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]     = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
     const supabase = createClient();
-
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
     if (authError) { setError(authError.message); setLoading(false); return; }
-
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
@@ -30,47 +28,67 @@ export default function LoginPage() {
     router.refresh();
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    background: "#F3F4F6",
+    border: "none",
+    borderRadius: 12,
+    padding: "16px 18px",
+    fontSize: 15,
+    fontFamily: "Gilroy, system-ui, sans-serif",
+    outline: "none",
+    color: "#111",
+    boxSizing: "border-box",
+  };
+
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen w-full relative overflow-hidden flex items-center justify-center"
       style={{ background: "linear-gradient(135deg, #1B9CFC 0%, #87CEEB 100%)" }}
     >
-      {/* Left side — visible on lg+ */}
-      <div className="hidden lg:block absolute inset-y-0 left-0 w-[55%] pointer-events-none select-none">
-        {/* Clouds */}
-        <img
-          src="/images/clouds-1.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        {/* Model */}
-        <img
-          src="/images/model.png"
-          alt=""
-          className="absolute left-1/2 -translate-x-1/2 object-contain"
-          style={{ height: "95vh", bottom: "-2vh" }}
-        />
-      </div>
+      {/* Clouds — full background, all screen sizes */}
+      <img
+        src="/images/clouds-1.png"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+        style={{ zIndex: 0 }}
+      />
 
-      {/* Right side — card */}
-      <div className="relative z-10 w-full flex items-center justify-center lg:justify-end lg:pr-[7%] px-4 py-10">
+      {/* Model — bottom-left, desktop only */}
+      <img
+        src="/images/model.png"
+        alt=""
+        className="hidden lg:block absolute pointer-events-none select-none object-contain"
+        style={{
+          left: 0,
+          bottom: 0,
+          height: "105vh",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Card — centered on mobile, right-aligned on desktop */}
+      <div
+        className="relative w-full flex items-center justify-center lg:justify-end lg:pr-[6%] px-4 py-8"
+        style={{ zIndex: 2 }}
+      >
         <div
           className="bg-white rounded-2xl shadow-xl flex flex-col w-full"
-          style={{ maxWidth: 520, minWidth: 480, padding: 48 }}
+          style={{ maxWidth: 520, padding: "clamp(28px, 5vw, 48px)" }}
         >
           {/* Logo */}
-          <div className="mb-1">
-            <span style={{
-              fontFamily: "Gilroy, system-ui, sans-serif",
-              fontWeight: 900,
-              fontSize: 28,
-              color: "#1B9CFC",
-              fontStyle: "italic",
-              letterSpacing: "-0.5px",
-            }}>
-              FRAME
-            </span>
-          </div>
+          <span style={{
+            fontFamily: "Gilroy, system-ui, sans-serif",
+            fontWeight: 900,
+            fontSize: 28,
+            color: "#1B9CFC",
+            fontStyle: "italic",
+            letterSpacing: "-0.5px",
+            marginBottom: 4,
+            display: "block",
+          }}>
+            FRAME
+          </span>
 
           {/* Sub-heading */}
           <p style={{ fontSize: 14, color: "#9CA3AF", fontFamily: "Gilroy, system-ui, sans-serif", marginBottom: 8 }}>
@@ -79,71 +97,23 @@ export default function LoginPage() {
 
           {/* Main heading */}
           <div style={{ marginBottom: 32 }}>
-            <div style={{
-              fontFamily: "Gilroy, system-ui, sans-serif",
-              fontWeight: 900,
-              fontSize: 48,
-              lineHeight: 1.05,
-              color: "#111111",
-            }}>
+            <div style={{ fontFamily: "Gilroy, system-ui, sans-serif", fontWeight: 900, fontSize: "clamp(36px, 5vw, 48px)", lineHeight: 1.05, color: "#111111" }}>
               Dress for the
             </div>
-            <div style={{
-              fontFamily: "Gilroy, system-ui, sans-serif",
-              fontWeight: 900,
-              fontSize: 48,
-              lineHeight: 1.05,
-              color: "#1B9CFC",
-              fontStyle: "italic",
-            }}>
+            <div style={{ fontFamily: "Gilroy, system-ui, sans-serif", fontWeight: 900, fontSize: "clamp(36px, 5vw, 48px)", lineHeight: 1.05, color: "#1B9CFC", fontStyle: "italic" }}>
               Future
             </div>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+          <form onSubmit={handleSubmit} className="flex flex-col">
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 10 }}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter email"
-                required
-                style={{
-                  width: "100%",
-                  background: "#F3F4F6",
-                  border: "none",
-                  borderRadius: 12,
-                  padding: "16px 18px",
-                  fontSize: 15,
-                  fontFamily: "Gilroy, system-ui, sans-serif",
-                  outline: "none",
-                  color: "#111",
-                  boxSizing: "border-box",
-                }}
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
-                required
-                style={{
-                  width: "100%",
-                  background: "#F3F4F6",
-                  border: "none",
-                  borderRadius: 12,
-                  padding: "16px 18px",
-                  fontSize: 15,
-                  fontFamily: "Gilroy, system-ui, sans-serif",
-                  outline: "none",
-                  color: "#111",
-                  boxSizing: "border-box",
-                }}
-              />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter email" required style={inputStyle} />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password" required style={inputStyle} />
             </div>
 
-            {/* Sign up link */}
             <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 16, fontFamily: "Gilroy, system-ui, sans-serif" }}>
               Don&apos;t have an account?{" "}
               <Link href="/register" style={{ color: "#1B9CFC", fontWeight: 600, textDecoration: "none" }}>
@@ -151,50 +121,30 @@ export default function LoginPage() {
               </Link>
             </p>
 
-            {/* Error */}
             {error && (
-              <p style={{
-                fontSize: 13,
-                color: "#EF4444",
-                background: "#FEF2F2",
-                borderRadius: 8,
-                padding: "10px 14px",
-                marginBottom: 12,
-                fontFamily: "Gilroy, system-ui, sans-serif",
-              }}>
+              <p style={{ fontSize: 13, color: "#EF4444", background: "#FEF2F2", borderRadius: 8, padding: "10px 14px", marginBottom: 12, fontFamily: "Gilroy, system-ui, sans-serif" }}>
                 {error}
               </p>
             )}
 
-            {/* Submit button */}
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: "100%",
-                background: loading ? "#7CC8FD" : "#1B9CFC",
-                color: "#fff",
-                border: "none",
-                borderRadius: 12,
-                padding: "16px",
-                fontSize: 16,
-                fontWeight: 700,
-                fontFamily: "Gilroy, system-ui, sans-serif",
-                cursor: loading ? "not-allowed" : "pointer",
-                transition: "opacity 0.15s",
-                marginBottom: 20,
-              }}
-            >
+            <button type="submit" disabled={loading} style={{
+              width: "100%",
+              background: loading ? "#7CC8FD" : "#1B9CFC",
+              color: "#fff",
+              border: "none",
+              borderRadius: 12,
+              padding: "16px",
+              fontSize: 16,
+              fontWeight: 700,
+              fontFamily: "Gilroy, system-ui, sans-serif",
+              cursor: loading ? "not-allowed" : "pointer",
+              transition: "opacity 0.15s",
+              marginBottom: 20,
+            }}>
               {loading ? "Logging in…" : "Log in"}
             </button>
 
-            {/* Welcome back */}
-            <p style={{
-              textAlign: "center",
-              fontSize: 13,
-              color: "#9CA3AF",
-              fontFamily: "Gilroy, system-ui, sans-serif",
-            }}>
+            <p style={{ textAlign: "center", fontSize: 13, color: "#9CA3AF", fontFamily: "Gilroy, system-ui, sans-serif" }}>
               Welcome back
             </p>
           </form>
