@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #87CEEB 0%, #1B9CFC 100%)" }}
+      style={{ background: "linear-gradient(135deg, #1B9CFC 0%, #87CEEB 100%)" }}
     >
       {/* Left side — visible on lg+ */}
       <div className="hidden lg:block absolute inset-y-0 left-0 w-[55%] pointer-events-none select-none">
