@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@frame.com"
+                placeholder="admin@example.com"
                 required
                 className="font-gilroy text-body bg-[#0f172a] text-white border border-white/10 px-4 py-2.5 rounded-md outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors"
               />
