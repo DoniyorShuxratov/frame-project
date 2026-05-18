@@ -526,101 +526,83 @@ export default function CustomersPage() {
         width="xl"
       >
         {selectedCustomer && (
-          <div className="space-y-6 font-gilroy">
+          <div className="p-7 space-y-6 font-gilroy">
             {/* Section 1: Customer Overview */}
             <div>
-              <h3 className="text-white/60 text-xs font-semibold uppercase tracking-wider font-gilroy mb-4">
+              <p className="font-gilroy font-semibold uppercase text-white/40 mb-4"
+                style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Customer Overview
-              </h3>
+              </p>
 
-              {/* Large Avatar + Identity */}
+              {/* Avatar + Identity */}
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-16 h-16 rounded-full bg-brand-primary/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-brand-primary text-xl font-bold font-gilroy">
+                <div className="rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ width: 48, height: 48, background: "#1B9CFC" }}>
+                  <span className="text-white text-lg font-bold font-gilroy">
                     {getInitials(selectedCustomer.username)}
                   </span>
                 </div>
                 <div>
-                  <p className="text-white text-lg font-semibold font-gilroy">
+                  <p className="text-white font-semibold font-gilroy" style={{ fontSize: 18 }}>
                     {selectedCustomer.username}
                   </p>
-                  <p className="text-white/40 text-xs font-gilroy mt-0.5">
-                    Customer ID: {selectedCustomer.id}
+                  <p className="text-white/40 font-mono mt-0.5" style={{ fontSize: 12 }}>
+                    {selectedCustomer.id}
                   </p>
                 </div>
               </div>
 
-              {/* Stats chips */}
+              {/* Metric cards */}
               <div className="grid grid-cols-3 gap-3">
-                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
-                  <p className="text-white/40 text-xs font-gilroy mb-1">
-                    Total Orders
-                  </p>
-                  <p className="text-white font-bold text-base font-gilroy">
-                    {selectedCustomer.orderCount}
-                  </p>
-                </div>
-                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
-                  <p className="text-white/40 text-xs font-gilroy mb-1">
-                    Total Spent
-                  </p>
-                  <p className="text-white font-bold text-base font-gilroy">
-                    ${selectedCustomer.totalSpent.toFixed(2)}
-                  </p>
-                </div>
-                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
-                  <p className="text-white/40 text-xs font-gilroy mb-1">
-                    Avg Order
-                  </p>
-                  <p className="text-white font-bold text-base font-gilroy">
-                    ${avgOrderValue.toFixed(2)}
-                  </p>
-                </div>
+                {[
+                  { label: "Total Orders", value: String(selectedCustomer.orderCount) },
+                  { label: "Total Spent",  value: `$${selectedCustomer.totalSpent.toFixed(2)}` },
+                  { label: "Avg Order",    value: `$${avgOrderValue.toFixed(2)}` },
+                ].map(({ label, value }) => (
+                  <div key={label} className="rounded-xl p-4 text-center"
+                    style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <p className="font-gilroy mb-1" style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                      {label}
+                    </p>
+                    <p className="text-white font-bold font-gilroy" style={{ fontSize: 22 }}>
+                      {value}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Divider */}
-            <div className="border-t border-white/[0.07]" />
 
             {/* Section 2: Order History */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <h3 className="text-white/60 text-xs font-semibold uppercase tracking-wider font-gilroy">
+                <p className="font-gilroy font-semibold uppercase text-white/40"
+                  style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                   Order History
-                </h3>
+                </p>
                 <span className="text-white/40 text-xs font-gilroy">
-                  ({selectedCustomer.orderCount} order
-                  {selectedCustomer.orderCount !== 1 ? "s" : ""})
+                  ({selectedCustomer.orderCount} order{selectedCustomer.orderCount !== 1 ? "s" : ""})
                 </span>
               </div>
 
               {selectedCustomer.orders.length === 0 ? (
-                <div className="bg-black rounded-lg p-4 text-center">
-                  <p className="text-white/40 text-sm font-gilroy">
-                    No orders placed yet
-                  </p>
+                <div className="rounded-xl p-4 text-center"
+                  style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <p className="text-white/40 text-sm font-gilroy">No orders placed yet</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   {selectedCustomer.orders.map((order) => (
-                    <div
-                      key={order.id}
-                      className="bg-black rounded-lg p-3"
-                    >
+                    <div key={order.id} className="rounded-xl"
+                      style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)", padding: "14px 16px" }}>
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div>
-                          <p className="text-white text-sm font-medium font-gilroy">
+                          <p className="font-semibold font-gilroy" style={{ color: "#1B9CFC" }}>
                             #{order.id.slice(0, 8).toUpperCase()}
                           </p>
-                          <p className="text-white/40 text-xs font-gilroy mt-0.5">
-                            {new Date(order.created_at).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              }
-                            )}
+                          <p className="font-gilroy mt-0.5" style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                            {new Date(order.created_at).toLocaleDateString("en-US", {
+                              month: "short", day: "numeric", year: "numeric",
+                            })}
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
@@ -630,16 +612,11 @@ export default function CustomersPage() {
                           </span>
                         </div>
                       </div>
-
                       {order.order_items && order.order_items.length > 0 && (
-                        <div className="mt-2 pt-2 border-t border-white/[0.06] space-y-1">
+                        <div className="mt-2 pt-2 space-y-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                           {order.order_items.map((item, idx) => (
-                            <p
-                              key={idx}
-                              className="text-white/50 text-xs font-gilroy"
-                            >
-                              {item.products?.name ?? "Unknown item"} Г—{" "}
-                              {item.quantity}
+                            <p key={idx} className="font-gilroy" style={{ fontSize: 13, color: "rgba(255,255,255,0.7)" }}>
+                              {item.products?.name ?? "Unknown item"} &times; {item.quantity}
                             </p>
                           ))}
                         </div>
@@ -650,88 +627,63 @@ export default function CustomersPage() {
               )}
             </div>
 
-            {/* Divider */}
-            <div className="border-t border-white/[0.07]" />
-
             {/* Section 3: Quick Stats */}
             <div>
-              <h3 className="text-white/60 text-xs font-semibold uppercase tracking-wider font-gilroy mb-4">
+              <p className="font-gilroy font-semibold uppercase text-white/40 mb-2"
+                style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Quick Stats
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm font-gilroy flex items-center gap-2">
-                    <Calendar className="w-3.5 h-3.5" />
-                    Member Since
-                  </span>
-                  <span className="text-white text-sm font-gilroy">
-                    {selectedCustomer.joinedAt === "N/A"
+              </p>
+              <div>
+                {[
+                  {
+                    icon: <Calendar className="w-3.5 h-3.5" />,
+                    label: "Member Since",
+                    value: selectedCustomer.joinedAt === "N/A"
                       ? "N/A"
-                      : new Date(
-                          selectedCustomer.joinedAt
-                        ).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm font-gilroy flex items-center gap-2">
-                    <ShoppingBag className="w-3.5 h-3.5" />
-                    First Order
-                  </span>
-                  <span className="text-white text-sm font-gilroy">
-                    {selectedCustomer.orders.length > 0
-                      ? new Date(
-                          selectedCustomer.orders[
-                            selectedCustomer.orders.length - 1
-                          ].created_at
-                        ).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
+                      : new Date(selectedCustomer.joinedAt).toLocaleDateString("en-US", {
+                          month: "short", day: "numeric", year: "numeric",
+                        }),
+                  },
+                  {
+                    icon: <ShoppingBag className="w-3.5 h-3.5" />,
+                    label: "First Order",
+                    value: selectedCustomer.orders.length > 0
+                      ? new Date(selectedCustomer.orders[selectedCustomer.orders.length - 1].created_at)
+                          .toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+                      : "N/A",
+                  },
+                  {
+                    icon: <Package className="w-3.5 h-3.5" />,
+                    label: "Most Recent Order",
+                    value: selectedCustomer.lastOrderAt
+                      ? new Date(selectedCustomer.lastOrderAt).toLocaleDateString("en-US", {
+                          month: "short", day: "numeric", year: "numeric",
                         })
-                      : "N/A"}
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-white/40 text-sm font-gilroy flex items-center gap-2">
-                    <Package className="w-3.5 h-3.5" />
-                    Most Recent Order
-                  </span>
-                  <span className="text-white text-sm font-gilroy">
-                    {selectedCustomer.lastOrderAt
-                      ? new Date(
-                          selectedCustomer.lastOrderAt
-                        ).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })
-                      : "Never"}
-                  </span>
-                </div>
-
+                      : "Never",
+                  },
+                ].map(({ icon, label, value }) => (
+                  <div key={label} className="flex items-center justify-between"
+                    style={{ padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                    <span className="font-gilroy flex items-center gap-2" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
+                      <span style={{ color: "rgba(255,255,255,0.4)" }}>{icon}</span>
+                      {label}
+                    </span>
+                    <span className="font-gilroy font-medium text-white" style={{ fontSize: 14 }}>{value}</span>
+                  </div>
+                ))}
                 {(() => {
-                  const allItems = selectedCustomer.orders.flatMap(
-                    (o) => o.order_items ?? []
-                  );
-                  const topItem =
-                    allItems.length > 0
-                      ? allItems.reduce((a, b) =>
-                          (a.quantity ?? 0) >= (b.quantity ?? 0) ? a : b
-                        )
-                      : null;
+                  const allItems = selectedCustomer.orders.flatMap((o) => o.order_items ?? []);
+                  const topItem = allItems.length > 0
+                    ? allItems.reduce((a, b) => (a.quantity ?? 0) >= (b.quantity ?? 0) ? a : b)
+                    : null;
                   return topItem?.products?.name ? (
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/40 text-sm font-gilroy flex items-center gap-2">
-                        <DollarSign className="w-3.5 h-3.5" />
+                    <div className="flex items-center justify-between"
+                      style={{ padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                      <span className="font-gilroy flex items-center gap-2" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
+                        <span style={{ color: "rgba(255,255,255,0.4)" }}><DollarSign className="w-3.5 h-3.5" /></span>
                         Top Ordered Item
                       </span>
-                      <span className="text-white text-sm font-gilroy max-w-[160px] truncate text-right">
+                      <span className="font-gilroy font-medium text-white max-w-[160px] truncate text-right" style={{ fontSize: 14 }}>
                         {topItem.products.name}
                       </span>
                     </div>

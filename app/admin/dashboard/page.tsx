@@ -1073,13 +1073,13 @@ export default function AdminDashboardPage() {
         }
       >
         {selectedOrder && (
-          <div className="space-y-6">
+          <div className="p-7 space-y-6">
             {/* Customer info */}
             <div>
-              <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
+              <h3 className="font-gilroy font-semibold text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Customer
               </h3>
-              <div className="bg-black rounded-xl px-4 py-3">
+              <div className="rounded-xl px-4 py-3" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <p className="font-gilroy text-body text-white font-semibold">
                   {getCustomerName(selectedOrder.customer_id)}
                 </p>
@@ -1091,10 +1091,10 @@ export default function AdminDashboardPage() {
 
             {/* Order summary */}
             <div>
-              <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
+              <h3 className="font-gilroy font-semibold text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Order Summary
               </h3>
-              <div className="bg-black rounded-xl divide-y divide-white/[0.05]">
+              <div className="rounded-xl divide-y divide-white/[0.05]" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="px-4 py-3 flex justify-between">
                   <span className="font-gilroy text-small text-white/60">Order ID</span>
                   <span className="font-gilroy text-small text-brand-primary font-semibold">
@@ -1119,14 +1119,15 @@ export default function AdminDashboardPage() {
             {/* Order items */}
             {selectedOrderItems.length > 0 && (
               <div>
-                <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
+                <h3 className="font-gilroy font-semibold text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                   Items
                 </h3>
                 <div className="space-y-2">
                   {selectedOrderItems.map((item, idx) => (
                     <div
                       key={idx}
-                      className="bg-black rounded-xl px-4 py-3 flex items-center gap-3"
+                      className="rounded-xl px-4 py-3 flex items-center gap-3"
+                      style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}
                     >
                       {item.products?.image_url && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -1155,7 +1156,7 @@ export default function AdminDashboardPage() {
 
             {/* Order timeline */}
             <div>
-              <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-4">
+              <h3 className="font-gilroy font-semibold text-white/40 uppercase mb-4" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Order Timeline
               </h3>
               <OrderTimeline status={selectedOrder.status} />
@@ -1163,7 +1164,7 @@ export default function AdminDashboardPage() {
 
             {/* Status change */}
             <div>
-              <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
+              <h3 className="font-gilroy font-semibold text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
                 Update Status
               </h3>
               <StatusSelect

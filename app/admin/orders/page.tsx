@@ -166,12 +166,12 @@ function OrderDetail({
     order.profile?.username || `Customer ${order.customer_id?.slice(0, 6) ?? ""}`;
 
   return (
-    <div className="space-y-6">
+    <div className="p-7 space-y-6">
       {/* Order Info */}
-      <div className="bg-black border border-white/10 rounded-xl p-5 space-y-4">
+      <div className="rounded-xl p-5 space-y-4" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-1">
+            <p className="font-gilroy text-white/40 uppercase mb-1" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
               Order ID
             </p>
             <p className="font-gilroy text-xl font-bold text-brand-primary">
@@ -181,13 +181,13 @@ function OrderDetail({
           <StatusBadge status={order.status} />
         </div>
         <div>
-          <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-1">
+          <p className="font-gilroy text-white/40 uppercase mb-1" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
             Placed on
           </p>
           <p className="font-gilroy text-sm text-white/70">{formatDateTime(order.created_at)}</p>
         </div>
         <div>
-          <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-2">
+          <p className="font-gilroy text-white/40 uppercase mb-2" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
             Update Status
           </p>
           <StatusSelect value={pendingStatus} onChange={setPendingStatus} />
@@ -211,13 +211,13 @@ function OrderDetail({
       </div>
 
       {/* Customer Info */}
-      <div className="bg-black border border-white/10 rounded-xl p-5">
-        <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-3">
+      <div className="rounded-xl p-5" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <p className="font-gilroy text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
           Customer
         </p>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center flex-shrink-0">
-            <span className="font-gilroy font-bold text-sm text-brand-primary">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#1B9CFC" }}>
+            <span className="font-gilroy font-bold text-sm text-white">
               {getInitials(displayName)}
             </span>
           </div>
@@ -231,8 +231,8 @@ function OrderDetail({
       </div>
 
       {/* Order Items */}
-      <div className="bg-black border border-white/10 rounded-xl p-5">
-        <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-3">
+      <div className="rounded-xl p-5" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <p className="font-gilroy text-white/40 uppercase mb-3" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
           Items
         </p>
         <div className="space-y-3">
@@ -277,8 +277,8 @@ function OrderDetail({
       </div>
 
       {/* Timeline */}
-      <div className="bg-black border border-white/10 rounded-xl p-5">
-        <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-4">
+      <div className="rounded-xl p-5" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <p className="font-gilroy text-white/40 uppercase mb-4" style={{ fontSize: 11, letterSpacing: "0.1em" }}>
           Order Timeline
         </p>
         <OrderTimeline order={order} />
