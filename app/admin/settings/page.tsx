@@ -352,14 +352,12 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => setNotifNewOrder((v) => !v)}
-                  className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
-                    notifNewOrder ? "bg-brand-primary" : "bg-white/15"
-                  }`}
+                  className="relative flex-shrink-0 rounded-full transition-colors duration-200"
+                  style={{ width: 44, height: 24, backgroundColor: notifNewOrder ? "#1B9CFC" : "rgba(255,255,255,0.15)" }}
                 >
                   <span
-                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
-                      notifNewOrder ? "translate-x-5" : "translate-x-0.5"
-                    }`}
+                    className="absolute rounded-full bg-white shadow-sm transition-transform duration-200"
+                    style={{ width: 18, height: 18, top: 3, left: 3, transform: notifNewOrder ? "translateX(20px)" : "translateX(0)" }}
                   />
                 </button>
               </div>
@@ -375,14 +373,12 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => setNotifLowStock((v) => !v)}
-                  className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
-                    notifLowStock ? "bg-brand-primary" : "bg-white/15"
-                  }`}
+                  className="relative flex-shrink-0 rounded-full transition-colors duration-200"
+                  style={{ width: 44, height: 24, backgroundColor: notifLowStock ? "#1B9CFC" : "rgba(255,255,255,0.15)" }}
                 >
                   <span
-                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
-                      notifLowStock ? "translate-x-5" : "translate-x-0.5"
-                    }`}
+                    className="absolute rounded-full bg-white shadow-sm transition-transform duration-200"
+                    style={{ width: 18, height: 18, top: 3, left: 3, transform: notifLowStock ? "translateX(20px)" : "translateX(0)" }}
                   />
                 </button>
               </div>
@@ -398,14 +394,12 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => setNotifNewCustomer((v) => !v)}
-                  className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
-                    notifNewCustomer ? "bg-brand-primary" : "bg-white/15"
-                  }`}
+                  className="relative flex-shrink-0 rounded-full transition-colors duration-200"
+                  style={{ width: 44, height: 24, backgroundColor: notifNewCustomer ? "#1B9CFC" : "rgba(255,255,255,0.15)" }}
                 >
                   <span
-                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${
-                      notifNewCustomer ? "translate-x-5" : "translate-x-0.5"
-                    }`}
+                    className="absolute rounded-full bg-white shadow-sm transition-transform duration-200"
+                    style={{ width: 18, height: 18, top: 3, left: 3, transform: notifNewCustomer ? "translateX(20px)" : "translateX(0)" }}
                   />
                 </button>
               </div>
