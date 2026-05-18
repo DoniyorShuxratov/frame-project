@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL", "One Size"];
 const CATEGORIES   = ["T-Shirts", "Jackets", "Pants", "Dresses", "Accessories", "Shoes", "Hoodies"];
@@ -116,9 +117,11 @@ export default function AdminEditProductPage() {
 
         <div>
           <label className={labelCls}>Category</label>
-          <select name="category" value={form.category} onChange={handleChange} className={inputCls}>
-            {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
-          </select>
+          <AdminSelect
+            value={form.category}
+            onChange={(v) => setForm((p) => ({ ...p, category: v }))}
+            options={CATEGORIES.map((c) => ({ value: c, label: c }))}
+          />
         </div>
 
         <div>

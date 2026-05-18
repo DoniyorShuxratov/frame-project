@@ -6,6 +6,7 @@ import { Modal } from "@/components/admin/Modal";
 import { SlideOver } from "@/components/admin/SlideOver";
 import { EmptyState } from "@/components/admin/EmptyState";
 import { useToast } from "@/components/admin/Toast";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 import { Button } from "@/components/Button";
 import {
   Search,
@@ -16,13 +17,12 @@ import {
   List,
   Package,
   AlertTriangle,
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
 
 } from "lucide-react";
 
-// в”Ђв”Ђв”Ђ Types в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// в"Ђв"Ђв"Ђ Types в"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђ
 
 interface Product {
   id: string;
@@ -50,7 +50,7 @@ const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "One Size"];
 const GRID_PAGE_SIZE = 12;
 const LIST_PAGE_SIZE = 10;
 
-// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// в"Ђв"Ђв"Ђ Helpers в"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђ
 
 function StockBadge({ stock }: { stock: number }) {
   if (stock === 0)
@@ -78,30 +78,30 @@ function StockBadge({ stock }: { stock: number }) {
   );
 }
 
-// в”Ђв”Ђв”Ђ Main Page в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+// в"Ђв"Ђв"Ђ Main Page в"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђ
 
 export default function AdminProductsPage() {
-  // в”Ђв”Ђ Data в”Ђв”Ђ
+  // в"Ђв"Ђ Data в"Ђв"Ђ
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // в”Ђв”Ђ View в”Ђв”Ђ
+  // в"Ђв"Ђ View в"Ђв"Ђ
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  // в”Ђв”Ђ Filters в”Ђв”Ђ
+  // в"Ђв"Ђ Filters в"Ђв"Ђ
   const [search, setSearch] = useState("");
   const [catFilter, setCatFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
 
-  // в”Ђв”Ђ Modals в”Ђв”Ђ
+  // в"Ђв"Ђ Modals в"Ђв"Ђ
   const [addOpen, setAddOpen] = useState(false);
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [deleteProduct, setDeleteProduct] = useState<Product | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  // в”Ђв”Ђ Form state в”Ђв”Ђ
+  // в"Ђв"Ђ Form state в"Ђв"Ђ
   const [formName, setFormName] = useState("");
   const [formDesc, setFormDesc] = useState("");
   const [formPrice, setFormPrice] = useState("");
@@ -115,7 +115,7 @@ export default function AdminProductsPage() {
 
   const { toast } = useToast();
 
-  // в”Ђв”Ђ Load в”Ђв”Ђ
+  // в"Ђв"Ђ Load в"Ђв"Ђ
   const load = useCallback(async () => {
     const supabase = createClient();
     const { data, error } = await supabase
@@ -134,12 +134,12 @@ export default function AdminProductsPage() {
     load();
   }, [load]);
 
-  // в”Ђв”Ђ Reset filter page on filter change в”Ђв”Ђ
+  // в"Ђв"Ђ Reset filter page on filter change в"Ђв"Ђ
   useEffect(() => {
     setPage(1);
   }, [search, catFilter, stockFilter, sort, view]);
 
-  // в”Ђв”Ђ Form helpers в”Ђв”Ђ
+  // в"Ђв"Ђ Form helpers в"Ђв"Ђ
   function resetForm() {
     setFormName("");
     setFormDesc("");
@@ -194,7 +194,7 @@ export default function AdminProductsPage() {
     );
   }
 
-  // в”Ђв”Ђ Submit (add or edit) в”Ђв”Ђ
+  // в"Ђв"Ђ Submit (add or edit) в"Ђв"Ђ
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError("");
@@ -255,7 +255,7 @@ export default function AdminProductsPage() {
     setFormSaving(false);
   }
 
-  // в”Ђв”Ђ Delete в”Ђв”Ђ
+  // в"Ђв"Ђ Delete в"Ђв"Ђ
   async function handleDelete() {
     if (!deleteProduct) return;
     setDeleting(true);
@@ -274,7 +274,7 @@ export default function AdminProductsPage() {
     setDeleting(false);
   }
 
-  // в”Ђв”Ђ Filtering в”Ђв”Ђ
+  // в"Ђв"Ђ Filtering в"Ђв"Ђ
   const filtered = useMemo(() => {
     let r = products;
     if (search)
@@ -302,17 +302,17 @@ export default function AdminProductsPage() {
     return r;
   }, [products, search, catFilter, stockFilter, sort]);
 
-  // в”Ђв”Ђ Pagination в”Ђв”Ђ
+  // в"Ђв"Ђ Pagination в"Ђв"Ђ
   const pageSize = view === "grid" ? GRID_PAGE_SIZE : LIST_PAGE_SIZE;
   const totalPages = Math.ceil(filtered.length / pageSize);
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
 
-  // в”Ђв”Ђ Stats в”Ђв”Ђ
+  // в"Ђв"Ђ Stats в"Ђв"Ђ
   const totalActive = products.filter((p) => p.is_active !== false).length;
   const totalLowStock = products.filter((p) => p.stock > 0 && p.stock < 5).length;
   const totalOutOfStock = products.filter((p) => p.stock === 0).length;
 
-  // в”Ђв”Ђ Shared form JSX в”Ђв”Ђ
+  // в"Ђв"Ђ Shared form JSX в"Ђв"Ђ
   const formContent = (
     <form onSubmit={handleFormSubmit} className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
@@ -371,17 +371,11 @@ export default function AdminProductsPage() {
             <label className="block font-gilroy font-semibold text-small text-white/60 mb-1.5">
               Category
             </label>
-            <select
+            <AdminSelect
               value={formCategory}
-              onChange={(e) => setFormCategory(e.target.value)}
-              className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors"
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+              onChange={setFormCategory}
+              options={CATEGORIES.map((c) => ({ value: c, label: c }))}
+            />
           </div>
         </div>
 
@@ -502,11 +496,11 @@ export default function AdminProductsPage() {
     </form>
   );
 
-  // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
+  // в"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђв"Ђ
 
   return (
     <div className="p-6 lg:p-8">
-      {/* в”Ђв”Ђ Header в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Header в"Ђв"Ђ */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="font-gilroy font-bold text-h2 text-white">Products</h1>
@@ -520,7 +514,7 @@ export default function AdminProductsPage() {
         </Button>
       </div>
 
-      {/* в”Ђв”Ђ Stats row в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Stats row в"Ђв"Ђ */}
       <div className="flex flex-wrap gap-2 mb-5">
         {[
           { label: "Total Products", value: products.length, color: "text-white/70" },
@@ -540,7 +534,7 @@ export default function AdminProductsPage() {
         ))}
       </div>
 
-      {/* в”Ђв”Ђ Filter bar в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Filter bar в"Ђв"Ђ */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px] max-w-xs">
@@ -555,53 +549,43 @@ export default function AdminProductsPage() {
         </div>
 
         {/* Category */}
-        <div className="relative">
-          <select
-            value={catFilter}
-            onChange={(e) => setCatFilter(e.target.value)}
-            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
-          >
-            <option value="all">All Categories</option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
-        </div>
+        <AdminSelect
+          value={catFilter}
+          onChange={setCatFilter}
+          options={[
+            { value: "all", label: "All Categories" },
+            ...CATEGORIES.map((c) => ({ value: c, label: c })),
+          ]}
+          className="min-w-[150px]"
+        />
 
         {/* Stock filter */}
-        <div className="relative">
-          <select
-            value={stockFilter}
-            onChange={(e) => setStockFilter(e.target.value)}
-            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
-          >
-            <option value="all">All Stock</option>
-            <option value="instock">In Stock (&gt;10)</option>
-            <option value="low">Low Stock (1вЂ“10)</option>
-            <option value="out">Out of Stock</option>
-          </select>
-          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
-        </div>
+        <AdminSelect
+          value={stockFilter}
+          onChange={setStockFilter}
+          options={[
+            { value: "all",     label: "All Stock" },
+            { value: "instock", label: "In Stock (>10)" },
+            { value: "low",     label: "Low Stock (1–10)" },
+            { value: "out",     label: "Out of Stock" },
+          ]}
+          className="min-w-[140px]"
+        />
 
         {/* Sort */}
-        <div className="relative">
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
-          >
-            <option value="newest">Newest</option>
-            <option value="name-asc">Name AвЂ“Z</option>
-            <option value="name-desc">Name ZвЂ“A</option>
-            <option value="price-asc">Price LowвЂ“High</option>
-            <option value="price-desc">Price HighвЂ“Low</option>
-            <option value="stock-asc">Stock LowвЂ“High</option>
-          </select>
-          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
-        </div>
+        <AdminSelect
+          value={sort}
+          onChange={setSort}
+          options={[
+            { value: "newest",     label: "Newest" },
+            { value: "name-asc",   label: "Name A–Z" },
+            { value: "name-desc",  label: "Name Z–A" },
+            { value: "price-asc",  label: "Price Low–High" },
+            { value: "price-desc", label: "Price High–Low" },
+            { value: "stock-asc",  label: "Stock Low–High" },
+          ]}
+          className="min-w-[150px]"
+        />
 
         {/* View toggle */}
         <div className="flex items-center bg-white/5 border border-white/10 rounded-md p-1 ml-auto">
@@ -624,7 +608,7 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      {/* в”Ђв”Ђ Content в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Content в"Ђв"Ђ */}
       {loading ? (
         /* Loading skeletons */
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -663,7 +647,7 @@ export default function AdminProductsPage() {
           />
         </div>
       ) : view === "grid" ? (
-        /* в”Ђв”Ђ Grid view в”Ђв”Ђ */
+        /* в"Ђв"Ђ Grid view в"Ђв"Ђ */
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {paginated.map((product) => (
             <div
@@ -725,7 +709,7 @@ export default function AdminProductsPage() {
           ))}
         </div>
       ) : (
-        /* в”Ђв”Ђ List view в”Ђв”Ђ */
+        /* в"Ђв"Ђ List view в"Ђв"Ђ */
         <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[800px]">
@@ -807,7 +791,7 @@ export default function AdminProductsPage() {
                           </span>
                         )}
                         {(!product.sizes || product.sizes.length === 0) && (
-                          <span className="font-gilroy text-xs text-white/20">вЂ”</span>
+                          <span className="font-gilroy text-xs text-white/20">&ndash;</span>
                         )}
                       </div>
                     </td>
@@ -852,11 +836,11 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* в”Ђв”Ђ Pagination в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Pagination в"Ђв"Ђ */}
       {!loading && totalPages > 1 && (
         <div className="flex items-center justify-between mt-5">
           <p className="font-gilroy text-small text-white/40">
-            Showing {(page - 1) * pageSize + 1}вЂ“
+            Showing {(page - 1) * pageSize + 1}&ndash;
             {Math.min(page * pageSize, filtered.length)} of {filtered.length}
           </p>
           <div className="flex items-center gap-1">
@@ -907,12 +891,12 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* в”Ђв”Ђ Add SlideOver в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Add SlideOver в"Ђв"Ђ */}
       <SlideOver open={addOpen} onClose={closeAdd} title="Add Product" width="xl">
         {formContent}
       </SlideOver>
 
-      {/* в”Ђв”Ђ Edit SlideOver в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Edit SlideOver в"Ђв"Ђ */}
       <SlideOver
         open={editProduct !== null}
         onClose={closeEdit}
@@ -922,7 +906,7 @@ export default function AdminProductsPage() {
         {formContent}
       </SlideOver>
 
-      {/* в”Ђв”Ђ Delete Modal в”Ђв”Ђ */}
+      {/* в"Ђв"Ђ Delete Modal в"Ђв"Ђ */}
       <Modal
         open={deleteProduct !== null}
         onClose={closeDelete}

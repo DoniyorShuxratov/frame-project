@@ -5,6 +5,7 @@ import { StatusBadge } from "@/components/admin/StatusBadge";
 import { Skeleton, SkeletonRow } from "@/components/admin/Skeleton";
 import { SlideOver } from "@/components/admin/SlideOver";
 import { EmptyState } from "@/components/admin/EmptyState";
+import { AdminSelect } from "@/components/admin/AdminSelect";
 import { Button } from "@/components/Button";
 import {
   Search,
@@ -15,7 +16,6 @@ import {
   Calendar,
   DollarSign,
   Package,
-  ArrowUpDown,
 } from "lucide-react";
 
 interface Profile {
@@ -284,31 +284,30 @@ export default function CustomersPage() {
 
           <div className="flex gap-3 flex-wrap sm:flex-nowrap">
             {/* Sort */}
-            <div className="relative">
-              <ArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40 pointer-events-none" />
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-                className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md pl-8 pr-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
-              >
-                <option value="most-orders">Most Orders</option>
-                <option value="highest-spent">Highest Spent</option>
-                <option value="most-recent">Most Recent</option>
-                <option value="name-asc">Name AвЂ“Z</option>
-              </select>
-            </div>
+            <AdminSelect
+              value={sort}
+              onChange={setSort}
+              options={[
+                { value: "most-orders",    label: "Most Orders" },
+                { value: "highest-spent",  label: "Highest Spent" },
+                { value: "most-recent",    label: "Most Recent" },
+                { value: "name-asc",       label: "Name A–Z" },
+              ]}
+              className="min-w-[150px]"
+            />
 
             {/* Filter */}
-            <select
+            <AdminSelect
               value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
-            >
-              <option value="all">All Customers</option>
-              <option value="new">New (0 orders)</option>
-              <option value="active">Active (1+ orders)</option>
-              <option value="vip">VIP (5+ orders or $500+)</option>
-            </select>
+              onChange={setFilter}
+              options={[
+                { value: "all",    label: "All Customers" },
+                { value: "new",    label: "New (0 orders)" },
+                { value: "active", label: "Active (1+ orders)" },
+                { value: "vip",    label: "VIP (5+ orders or $500+)" },
+              ]}
+              className="min-w-[170px]"
+            />
           </div>
         </div>
       </div>
