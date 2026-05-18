@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
@@ -37,7 +37,7 @@ import {
   Line,
 } from "recharts";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Types в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 interface Order {
   id: string;
@@ -93,7 +93,7 @@ interface SparkPoint {
   v: number;
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -170,7 +170,7 @@ function buildSparkline(orders: Order[], metric: "revenue" | "orders"): SparkPoi
   return buildLast7Days(orders).map((d) => ({ v: metric === "revenue" ? d.revenue : d.orders }));
 }
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Sub-components в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 const STATUS_COLORS: Record<string, string> = {
   pending: "#f59e0b",
@@ -182,7 +182,7 @@ const STATUS_COLORS: Record<string, string> = {
 
 const CHART_TOOLTIP_STYLE = {
   contentStyle: {
-    background: "#1e293b",
+    background: "#080808",
     border: "1px solid rgba(255,255,255,0.1)",
     borderRadius: "12px",
     fontFamily: "Gilroy",
@@ -224,7 +224,7 @@ interface MetricCardProps {
 
 function MetricCard({ title, value, icon, spark, change }: MetricCardProps) {
   return (
-    <div className="bg-[#1e293b] border border-white/10 rounded-xl flex flex-col overflow-hidden">
+    <div className="bg-white/5 border border-white/10 rounded-xl flex flex-col overflow-hidden">
       <div className="px-5 pt-5 pb-3 flex items-start justify-between gap-3">
         <div>
           <p className="font-gilroy text-small text-white/40 uppercase tracking-wider mb-2">
@@ -296,7 +296,7 @@ function OrderTimeline({ status }: OrderTimelineProps) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Main Page в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 export default function AdminDashboardPage() {
   const { toast } = useToast();
@@ -317,7 +317,7 @@ export default function AdminDashboardPage() {
   const [selectedOrderItems, setSelectedOrderItems] = useState<OrderItemRaw[]>([]);
   const [statusUpdating, setStatusUpdating] = useState(false);
 
-  // ── Data loading ────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Data loading в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const loadData = useCallback(async (silent = false) => {
     const supabase = createClient();
@@ -378,13 +378,13 @@ export default function AdminDashboardPage() {
     await loadData(true);
   }, [loadData]);
 
-  // ── Initial load ────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Initial load в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  // ── Auto-refresh every 30s ──────────────────────────────────────────────────
+  // в”Ђв”Ђ Auto-refresh every 30s в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -393,7 +393,7 @@ export default function AdminDashboardPage() {
     return () => clearInterval(interval);
   }, [loadData]);
 
-  // ── Seconds-ago counter ─────────────────────────────────────────────────────
+  // в”Ђв”Ђ Seconds-ago counter в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -402,7 +402,7 @@ export default function AdminDashboardPage() {
     return () => clearInterval(timer);
   }, [lastUpdatedAt]);
 
-  // ── Realtime subscription ───────────────────────────────────────────────────
+  // в”Ђв”Ђ Realtime subscription в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   useEffect(() => {
     const supabase = createClient();
@@ -427,7 +427,7 @@ export default function AdminDashboardPage() {
     return () => { supabase.removeChannel(channel); };
   }, []);
 
-  // ── Derived metrics ─────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Derived metrics в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const now = new Date();
   const thisWeekCutoff = new Date(now);
@@ -460,7 +460,7 @@ export default function AdminDashboardPage() {
       ? lastWeekOrders.reduce((s, o) => s + o.total, 0) / lastWeekOrders.length
       : 0;
 
-  // ── Chart data ───────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Chart data в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const last30Days = buildLast30Days(orders);
   const last7Days = buildLast7Days(orders);
@@ -483,7 +483,7 @@ export default function AdminDashboardPage() {
     .sort((a, b) => b[1] - a[1])
     .map(([category, units]) => ({ category, units }));
 
-  // ── Top products ─────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Top products в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const productSalesMap: Record<
     string,
@@ -512,7 +512,7 @@ export default function AdminDashboardPage() {
       revenue: entry.revenue,
     }));
 
-  // ── Profile lookup ───────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Profile lookup в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const profileMap = new Map<string, Profile>(profiles.map((p) => [p.id, p]));
 
@@ -521,7 +521,7 @@ export default function AdminDashboardPage() {
     return profile?.username ?? `Customer #${customerId.slice(0, 6).toUpperCase()}`;
   }
 
-  // ── Status update ────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Status update в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   async function handleStatusChange(orderId: string, newStatus: string) {
     setStatusUpdating(true);
@@ -551,7 +551,7 @@ export default function AdminDashboardPage() {
     setSlideOpen(true);
   }
 
-  // ── Loading skeleton ──────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Loading skeleton в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   if (loading) {
     return (
@@ -591,7 +591,7 @@ export default function AdminDashboardPage() {
     );
   }
 
-  // ── Metric cards config ───────────────────────────────────────────────────────
+  // в”Ђв”Ђ Metric cards config в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const revenueChange = calcChange(thisWeekRevenue, lastWeekRevenue);
   const ordersChange = calcChange(thisWeekOrders.length, lastWeekOrders.length);
@@ -605,7 +605,7 @@ export default function AdminDashboardPage() {
   );
   const avgChange = calcChange(thisWeekAvg, lastWeekAvg);
 
-  // ── Render ────────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Render в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   return (
     <div className="p-6 lg:p-8 space-y-6">
@@ -713,7 +713,7 @@ export default function AdminDashboardPage() {
       {/* Charts row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue chart */}
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Revenue (Last 30 Days)</h2>
             <span className="font-gilroy text-xs text-white/40">Daily</span>
@@ -760,7 +760,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Orders by status donut */}
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Orders by Status</h2>
             <span className="font-gilroy text-xs text-white/40">{orders.length} total</span>
@@ -819,7 +819,7 @@ export default function AdminDashboardPage() {
       {/* Charts row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Category bar */}
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Sales by Category</h2>
             <span className="font-gilroy text-xs text-white/40">Units sold</span>
@@ -861,7 +861,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Revenue vs Orders (last 7 days) */}
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Revenue vs Orders</h2>
             <span className="font-gilroy text-xs text-white/40">Last 7 days</span>
@@ -928,7 +928,7 @@ export default function AdminDashboardPage() {
       {/* Recent orders + Top products */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent orders table */}
-        <div className="lg:col-span-2 bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="lg:col-span-2 bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Recent Orders</h2>
             <span className="font-gilroy text-xs text-white/40">Latest 5</span>
@@ -980,7 +980,7 @@ export default function AdminDashboardPage() {
                           value={order.status}
                           disabled={statusUpdating}
                           onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                          className="font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-2 py-1 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors text-xs"
+                          className="font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-2 py-1 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors text-xs"
                         >
                           {["pending", "processing", "shipped", "delivered", "cancelled"].map(
                             (s) => (
@@ -1010,7 +1010,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Top products */}
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
             <h2 className="font-gilroy font-semibold text-body text-white">Top Products</h2>
             <span className="font-gilroy text-xs text-white/40">By units sold</span>
@@ -1086,7 +1086,7 @@ export default function AdminDashboardPage() {
               <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
                 Customer
               </h3>
-              <div className="bg-[#0f172a] rounded-xl px-4 py-3">
+              <div className="bg-black rounded-xl px-4 py-3">
                 <p className="font-gilroy text-body text-white font-semibold">
                   {getCustomerName(selectedOrder.customer_id)}
                 </p>
@@ -1101,7 +1101,7 @@ export default function AdminDashboardPage() {
               <h3 className="font-gilroy font-semibold text-small text-white/40 uppercase tracking-wider mb-3">
                 Order Summary
               </h3>
-              <div className="bg-[#0f172a] rounded-xl divide-y divide-white/[0.05]">
+              <div className="bg-black rounded-xl divide-y divide-white/[0.05]">
                 <div className="px-4 py-3 flex justify-between">
                   <span className="font-gilroy text-small text-white/60">Order ID</span>
                   <span className="font-gilroy text-small text-brand-primary font-semibold">
@@ -1133,7 +1133,7 @@ export default function AdminDashboardPage() {
                   {selectedOrderItems.map((item, idx) => (
                     <div
                       key={idx}
-                      className="bg-[#0f172a] rounded-xl px-4 py-3 flex items-center gap-3"
+                      className="bg-black rounded-xl px-4 py-3 flex items-center gap-3"
                     >
                       {item.products?.image_url && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -1177,7 +1177,7 @@ export default function AdminDashboardPage() {
                 value={selectedOrder.status}
                 disabled={statusUpdating}
                 onChange={(e) => handleStatusChange(selectedOrder.id, e.target.value)}
-                className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
               >
                 {["pending", "processing", "shipped", "delivered", "cancelled"].map((s) => (
                   <option key={s} value={s}>

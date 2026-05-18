@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -52,7 +52,7 @@ export default function AdminNewProductPage() {
     router.push("/admin/products");
   }
 
-  const inputCls = "w-full bg-[#0f172a] text-white border border-white/10 rounded-md px-4 py-2.5 font-gilroy text-body outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors";
+  const inputCls = "w-full bg-black text-white border border-white/10 rounded-md px-4 py-2.5 font-gilroy text-body outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors";
   const labelCls = "block font-gilroy font-semibold text-small text-white/70 mb-1.5";
 
   return (
@@ -74,7 +74,7 @@ export default function AdminNewProductPage() {
             name="description"
             value={form.description}
             onChange={handleChange}
-            placeholder="A brief description of the product…"
+            placeholder="A brief description of the productвЂ¦"
             rows={3}
             className={`${inputCls} resize-none`}
           />
@@ -100,7 +100,7 @@ export default function AdminNewProductPage() {
 
         <div>
           <label className={labelCls}>Image URL</label>
-          <input name="image_url" value={form.image_url} onChange={handleChange} placeholder="https://images.unsplash.com/…" className={inputCls} />
+          <input name="image_url" value={form.image_url} onChange={handleChange} placeholder="https://images.unsplash.com/вЂ¦" className={inputCls} />
         </div>
 
         <div>
@@ -134,7 +134,7 @@ export default function AdminNewProductPage() {
             disabled={saving}
             className="bg-brand-primary text-white font-gilroy font-semibold text-body px-6 py-2.5 rounded-md hover:opacity-90 transition-opacity disabled:opacity-50"
           >
-            {saving ? "Saving…" : "Save Product"}
+            {saving ? "SavingвЂ¦" : "Save Product"}
           </button>
           <button
             type="button"

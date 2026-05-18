@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
@@ -198,7 +198,7 @@ export default function CustomersPage() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
+        <div className="bg-white/5 border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-brand-primary/20 flex items-center justify-center flex-shrink-0">
             <Users className="w-5 h-5 text-brand-primary" />
           </div>
@@ -214,7 +214,7 @@ export default function CustomersPage() {
           </div>
         </div>
 
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
+        <div className="bg-white/5 border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
             <ShoppingBag className="w-5 h-5 text-green-400" />
           </div>
@@ -232,7 +232,7 @@ export default function CustomersPage() {
           </div>
         </div>
 
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
+        <div className="bg-white/5 border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0">
             <DollarSign className="w-5 h-5 text-blue-400" />
           </div>
@@ -248,7 +248,7 @@ export default function CustomersPage() {
           </div>
         </div>
 
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
+        <div className="bg-white/5 border border-white/10 rounded-xl px-5 py-4 flex items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0">
             <Package className="w-5 h-5 text-purple-400" />
           </div>
@@ -268,7 +268,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-[#1e293b] border border-white/10 rounded-xl mb-6">
+      <div className="bg-white/5 border border-white/10 rounded-xl mb-6">
         <div className="px-6 py-4 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
           {/* Search */}
           <div className="relative flex-1 min-w-0">
@@ -278,7 +278,7 @@ export default function CustomersPage() {
               placeholder="Search by name or ID..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="font-gilroy text-sm text-white bg-[#0f172a] border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors w-full"
+              className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors w-full"
             />
           </div>
 
@@ -289,12 +289,12 @@ export default function CustomersPage() {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="font-gilroy text-sm text-white bg-[#0f172a] border border-white/10 rounded-md pl-8 pr-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
+                className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md pl-8 pr-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
               >
                 <option value="most-orders">Most Orders</option>
                 <option value="highest-spent">Highest Spent</option>
                 <option value="most-recent">Most Recent</option>
-                <option value="name-asc">Name A–Z</option>
+                <option value="name-asc">Name AвЂ“Z</option>
               </select>
             </div>
 
@@ -302,7 +302,7 @@ export default function CustomersPage() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="font-gilroy text-sm text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
+              className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
             >
               <option value="all">All Customers</option>
               <option value="new">New (0 orders)</option>
@@ -314,7 +314,7 @@ export default function CustomersPage() {
       </div>
 
       {/* Table Card */}
-      <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+      <div className="bg-white/5 border border-white/10 rounded-xl">
         <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
           <h2 className="text-white font-semibold font-gilroy">
             Customer List
@@ -488,7 +488,7 @@ export default function CustomersPage() {
                           key={`ellipsis-${idx}`}
                           className="text-white/40 text-sm font-gilroy px-1"
                         >
-                          …
+                          вЂ¦
                         </span>
                       ) : (
                         <button
@@ -553,7 +553,7 @@ export default function CustomersPage() {
 
               {/* Stats chips */}
               <div className="grid grid-cols-3 gap-3">
-                <div className="bg-[#0f172a] border border-white/10 rounded-lg p-3 text-center">
+                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
                   <p className="text-white/40 text-xs font-gilroy mb-1">
                     Total Orders
                   </p>
@@ -561,7 +561,7 @@ export default function CustomersPage() {
                     {selectedCustomer.orderCount}
                   </p>
                 </div>
-                <div className="bg-[#0f172a] border border-white/10 rounded-lg p-3 text-center">
+                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
                   <p className="text-white/40 text-xs font-gilroy mb-1">
                     Total Spent
                   </p>
@@ -569,7 +569,7 @@ export default function CustomersPage() {
                     ${selectedCustomer.totalSpent.toFixed(2)}
                   </p>
                 </div>
-                <div className="bg-[#0f172a] border border-white/10 rounded-lg p-3 text-center">
+                <div className="bg-black border border-white/10 rounded-lg p-3 text-center">
                   <p className="text-white/40 text-xs font-gilroy mb-1">
                     Avg Order
                   </p>
@@ -596,7 +596,7 @@ export default function CustomersPage() {
               </div>
 
               {selectedCustomer.orders.length === 0 ? (
-                <div className="bg-[#0f172a] rounded-lg p-4 text-center">
+                <div className="bg-black rounded-lg p-4 text-center">
                   <p className="text-white/40 text-sm font-gilroy">
                     No orders placed yet
                   </p>
@@ -606,7 +606,7 @@ export default function CustomersPage() {
                   {selectedCustomer.orders.map((order) => (
                     <div
                       key={order.id}
-                      className="bg-[#0f172a] rounded-lg p-3"
+                      className="bg-black rounded-lg p-3"
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div>
@@ -639,7 +639,7 @@ export default function CustomersPage() {
                               key={idx}
                               className="text-white/50 text-xs font-gilroy"
                             >
-                              {item.products?.name ?? "Unknown item"} ×{" "}
+                              {item.products?.name ?? "Unknown item"} Г—{" "}
                               {item.quantity}
                             </p>
                           ))}

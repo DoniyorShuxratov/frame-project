@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -221,12 +221,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <ToastProvider>
-      <div className="flex h-screen bg-[#0f172a] overflow-hidden">
+      <div className="flex h-screen bg-black overflow-hidden">
 
         {/* Desktop sidebar */}
         <aside
           className={[
-            "hidden lg:flex flex-col flex-shrink-0 bg-[#0b1628] border-r border-white/[0.07]",
+            "hidden lg:flex flex-col flex-shrink-0 bg-black border-r border-white/[0.07]",
             "transition-all duration-200 ease-in-out",
             collapsed ? "w-16" : "w-60",
           ].join(" ")}
@@ -237,7 +237,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Mobile sidebar overlay */}
         {mobileOpen && (
           <div className="lg:hidden fixed inset-0 z-50 flex">
-            <div className="w-64 flex-shrink-0 bg-[#0b1628] border-r border-white/[0.07]">
+            <div className="w-64 flex-shrink-0 bg-black border-r border-white/[0.07]">
               <SidebarContent mobile />
             </div>
             <div className="flex-1 bg-black/50" onClick={() => setMobileOpen(false)} />
@@ -248,7 +248,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
 
           {/* Top header */}
-          <header className="h-14 flex items-center justify-between px-4 lg:px-6 bg-[#0f172a] border-b border-white/[0.07] flex-shrink-0">
+          <header className="h-14 flex items-center justify-between px-4 lg:px-6 bg-black border-b border-white/[0.07] flex-shrink-0">
             <div className="flex items-center gap-3">
               {/* Mobile hamburger */}
               <button
@@ -283,7 +283,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {notifOpen && (
                   <>
                     <div className="fixed inset-0 z-30" onClick={() => setNotifOpen(false)} />
-                    <div className="absolute right-0 top-full mt-2 w-64 bg-[#1e293b] border border-white/10 rounded-xl shadow-2xl z-40 p-4">
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white/5 border border-white/10 rounded-xl shadow-2xl z-40 p-4">
                       <p className="font-gilroy font-semibold text-small text-white mb-1">Notifications</p>
                       {pendingCount > 0 ? (
                         <Link

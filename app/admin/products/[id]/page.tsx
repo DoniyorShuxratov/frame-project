@@ -73,7 +73,7 @@ export default function AdminEditProductPage() {
     router.push("/admin/products");
   }
 
-  const inputCls = "w-full bg-[#0f172a] text-white border border-white/10 rounded-md px-4 py-2.5 font-gilroy text-body outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors";
+  const inputCls = "w-full bg-black text-white border border-white/10 rounded-md px-4 py-2.5 font-gilroy text-body outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors";
   const labelCls = "block font-gilroy font-semibold text-small text-white/70 mb-1.5";
 
   if (loading) {

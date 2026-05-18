@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -82,7 +82,7 @@ export default function SettingsPage() {
           setDisplayName(profile.username);
         }
       } catch {
-        // Silently fail — profile load is non-critical on mount
+        // Silently fail вЂ” profile load is non-critical on mount
       }
     };
 
@@ -201,7 +201,7 @@ export default function SettingsPage() {
         {/* LEFT COLUMN */}
         <div className="lg:col-span-2 space-y-6">
           {/* 1. Store Settings */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center flex-shrink-0">
                 <Store className="w-4 h-4 text-brand-primary" />
@@ -224,7 +224,7 @@ export default function SettingsPage() {
                   value={storeName}
                   onChange={(e) => setStoreName(e.target.value)}
                   placeholder="FRAME"
-                  className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                  className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
                 />
               </div>
 
@@ -237,7 +237,7 @@ export default function SettingsPage() {
                   value={storeDesc}
                   onChange={(e) => setStoreDesc(e.target.value)}
                   placeholder="A premium fashion store..."
-                  className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors resize-none"
+                  className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors resize-none"
                 />
               </div>
 
@@ -266,7 +266,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 2. Admin Profile */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center flex-shrink-0">
                 <User className="w-4 h-4 text-brand-primary" />
@@ -287,7 +287,7 @@ export default function SettingsPage() {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="Admin"
-                  className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                  className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
                 />
               </div>
 
@@ -299,7 +299,7 @@ export default function SettingsPage() {
                   type="email"
                   value={adminEmail}
                   disabled
-                  className="w-full font-gilroy text-small text-white/40 bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none cursor-not-allowed"
+                  className="w-full font-gilroy text-small text-white/40 bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none cursor-not-allowed"
                 />
                 <p className="font-gilroy text-xs text-white/30 mt-1.5">
                   Email address cannot be changed here.
@@ -327,7 +327,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 3. Notification Preferences */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center flex-shrink-0">
                 <Bell className="w-4 h-4 text-brand-primary" />
@@ -425,7 +425,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 4. Inventory Settings */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-brand-primary/15 flex items-center justify-center flex-shrink-0">
                 <Package className="w-4 h-4 text-brand-primary" />
@@ -451,14 +451,14 @@ export default function SettingsPage() {
                       Math.min(50, Math.max(1, Number(e.target.value)))
                     )
                   }
-                  className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                  className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
                 />
                 <p className="font-gilroy text-xs text-white/30 mt-1.5">
                   Products with stock below this number will be flagged as low stock
                 </p>
               </div>
 
-              <div className="bg-[#0f172a] rounded-lg px-4 py-3 flex items-center gap-2">
+              <div className="bg-black rounded-lg px-4 py-3 flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0" />
                 <p className="font-gilroy text-small text-white/60">
                   Currently flagging products with stock &lt;{" "}
@@ -490,12 +490,12 @@ export default function SettingsPage() {
         {/* RIGHT COLUMN */}
         <div className="space-y-6">
           {/* 1. Store Preview */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07]">
               <p className="font-gilroy font-semibold text-body text-white">Store Preview</p>
             </div>
             <div className="px-6 py-5">
-              <div className="bg-[#0f172a] rounded-lg p-4">
+              <div className="bg-black rounded-lg p-4">
                 <span className="font-gilroy font-bold text-h4 text-white tracking-tight">
                   {storeName || "FRAME"}
                 </span>
@@ -507,7 +507,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 2. Admin Info */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+          <div className="bg-white/5 border border-white/10 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07]">
               <p className="font-gilroy font-semibold text-body text-white">Account Info</p>
             </div>
@@ -538,7 +538,7 @@ export default function SettingsPage() {
           </div>
 
           {/* 3. Danger Zone */}
-          <div className="bg-[#1e293b] border border-red-500/20 rounded-xl">
+          <div className="bg-white/5 border border-red-500/20 rounded-xl">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center gap-3">
               <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
               <p className="font-gilroy font-semibold text-body text-red-400">Danger Zone</p>

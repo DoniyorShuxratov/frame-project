@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
@@ -12,7 +12,7 @@ import {
   Package, Clock, CheckCircle, Truck, XCircle,
 } from "lucide-react";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Types в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 interface OrderItem {
   id: string;
@@ -32,7 +32,7 @@ interface Order {
   profile?: { username: string } | null;
 }
 
-// ─── Constants ───────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Constants в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 const PAGE_SIZE = 10;
 
@@ -46,7 +46,7 @@ const STATUS_INDEX: Record<string, number> = {
   cancelled: -1,
 };
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -75,7 +75,7 @@ function getInitials(name: string) {
     .slice(0, 2);
 }
 
-// ─── Timeline ────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Timeline в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function OrderTimeline({ order }: { order: Order }) {
   const currentIdx = STATUS_INDEX[order.status] ?? 0;
@@ -148,7 +148,7 @@ function OrderTimeline({ order }: { order: Order }) {
   );
 }
 
-// ─── Slide-Over Content ───────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Slide-Over Content в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function OrderDetail({
   order,
@@ -163,7 +163,7 @@ function OrderDetail({
   return (
     <div className="space-y-6">
       {/* Order Info */}
-      <div className="bg-[#0f172a] border border-white/10 rounded-xl p-5 space-y-4">
+      <div className="bg-black border border-white/10 rounded-xl p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-1">
@@ -188,7 +188,7 @@ function OrderDetail({
           <select
             value={order.status}
             onChange={(e) => onStatusChange(order.id, e.target.value)}
-            className="font-gilroy text-small text-white bg-[#1e293b] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors w-full"
+            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors w-full"
           >
             {["pending", "processing", "shipped", "delivered", "cancelled"].map((s) => (
               <option key={s} value={s} className="capitalize">
@@ -200,7 +200,7 @@ function OrderDetail({
       </div>
 
       {/* Customer Info */}
-      <div className="bg-[#0f172a] border border-white/10 rounded-xl p-5">
+      <div className="bg-black border border-white/10 rounded-xl p-5">
         <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-3">
           Customer
         </p>
@@ -220,7 +220,7 @@ function OrderDetail({
       </div>
 
       {/* Order Items */}
-      <div className="bg-[#0f172a] border border-white/10 rounded-xl p-5">
+      <div className="bg-black border border-white/10 rounded-xl p-5">
         <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-3">
           Items
         </p>
@@ -247,7 +247,7 @@ function OrderDetail({
                     {item.size}
                   </span>
                   <span className="font-gilroy text-xs text-white/40">
-                    × {item.quantity}
+                    Г— {item.quantity}
                   </span>
                 </div>
               </div>
@@ -266,7 +266,7 @@ function OrderDetail({
       </div>
 
       {/* Timeline */}
-      <div className="bg-[#0f172a] border border-white/10 rounded-xl p-5">
+      <div className="bg-black border border-white/10 rounded-xl p-5">
         <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-4">
           Order Timeline
         </p>
@@ -276,7 +276,7 @@ function OrderDetail({
   );
 }
 
-// ─── Sort Button ──────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Sort Button в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 type SortType = "date-desc" | "date-asc" | "total-desc" | "total-asc";
 
@@ -304,7 +304,7 @@ function SortButton({ sort, onSort }: { sort: SortType; onSort: (s: SortType) =>
   return (
     <button
       onClick={next}
-      className="font-gilroy text-small text-white/60 bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none hover:border-white/30 transition-colors flex items-center gap-2 whitespace-nowrap"
+      className="font-gilroy text-small text-white/60 bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none hover:border-white/30 transition-colors flex items-center gap-2 whitespace-nowrap"
     >
       <Icon size={14} />
       {labels[sort]}
@@ -312,7 +312,7 @@ function SortButton({ sort, onSort }: { sort: SortType; onSort: (s: SortType) =>
   );
 }
 
-// ─── Pagination ───────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Pagination в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function Pagination({
   page,
@@ -345,7 +345,7 @@ function Pagination({
   return (
     <div className="flex items-center justify-between px-6 py-4 border-t border-white/[0.07]">
       <p className="font-gilroy text-xs text-white/40">
-        Showing {total === 0 ? 0 : from}–{to} of {total} orders
+        Showing {total === 0 ? 0 : from}вЂ“{to} of {total} orders
       </p>
       <div className="flex items-center gap-1">
         <button
@@ -353,7 +353,7 @@ function Pagination({
           disabled={page === 1}
           className="w-8 h-8 flex items-center justify-center rounded font-gilroy text-xs text-white/50 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          «
+          В«
         </button>
         <button
           onClick={() => onPage(page - 1)}
@@ -365,7 +365,7 @@ function Pagination({
         {getPages().map((p, i) =>
           p === "..." ? (
             <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center font-gilroy text-xs text-white/30">
-              …
+              вЂ¦
             </span>
           ) : (
             <button
@@ -394,14 +394,14 @@ function Pagination({
           disabled={page === totalPages}
           className="w-8 h-8 flex items-center justify-center rounded font-gilroy text-xs text-white/50 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          »
+          В»
         </button>
       </div>
     </div>
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Page в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -417,7 +417,7 @@ export default function AdminOrdersPage() {
   const [slideOpen, setSlideOpen] = useState(false);
   const { toast } = useToast();
 
-  // ── Load Data ──────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Load Data в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const loadOrders = useCallback(async () => {
     const supabase = createClient();
@@ -492,7 +492,7 @@ export default function AdminOrdersPage() {
     setPage(1);
   }, [search, statusFilter, dateFrom, dateTo, sort]);
 
-  // ── Filtering ──────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Filtering в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const filteredOrders = useMemo(() => {
     let result = orders;
@@ -532,14 +532,14 @@ export default function AdminOrdersPage() {
     return result;
   }, [orders, search, statusFilter, dateFrom, dateTo, sort]);
 
-  // ── Pagination slice ───────────────────────────────────────────────────────
+  // в”Ђв”Ђ Pagination slice в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const paginatedOrders = useMemo(
     () => filteredOrders.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
     [filteredOrders, page]
   );
 
-  // ── Stats ──────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Stats в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const stats = useMemo(
     () => ({
@@ -552,7 +552,7 @@ export default function AdminOrdersPage() {
     [orders]
   );
 
-  // ── Status Change ──────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Status Change в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const handleStatusChange = useCallback(
     async (id: string, status: string) => {
@@ -569,7 +569,7 @@ export default function AdminOrdersPage() {
     [toast]
   );
 
-  // ── Bulk Actions ───────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Bulk Actions в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const allPageSelected =
     paginatedOrders.length > 0 &&
@@ -623,7 +623,7 @@ export default function AdminOrdersPage() {
     [selectedIds, toast]
   );
 
-  // ── CSV Export ─────────────────────────────────────────────────────────────
+  // в”Ђв”Ђ CSV Export в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   function exportCSV() {
     const headers = ["Order ID", "Date", "Customer", "Items", "Total", "Status"];
@@ -652,7 +652,7 @@ export default function AdminOrdersPage() {
     });
   }
 
-  // ── Active Filters ─────────────────────────────────────────────────────────
+  // в”Ђв”Ђ Active Filters в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   const hasFilters =
     search !== "" || statusFilter !== "all" || dateFrom !== "" || dateTo !== "";
@@ -665,7 +665,7 @@ export default function AdminOrdersPage() {
     setSort("date-desc");
   }
 
-  // ─────────────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   return (
     <div className="p-6 lg:p-8 space-y-6">
@@ -687,7 +687,7 @@ export default function AdminOrdersPage() {
         ].map(({ label, value }) => (
           <div
             key={label}
-            className="bg-[#1e293b] border border-white/10 rounded-lg px-4 py-2.5 flex items-center gap-2"
+            className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 flex items-center gap-2"
           >
             <span className="font-gilroy text-xs text-white/40">{label}</span>
             <span className="font-gilroy text-sm font-bold text-white">{value}</span>
@@ -708,7 +708,7 @@ export default function AdminOrdersPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by order ID or customer..."
-            className="font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors w-full"
+            className="font-gilroy text-small text-white bg-black border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors w-full"
           />
         </div>
 
@@ -716,7 +716,7 @@ export default function AdminOrdersPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors"
+          className="font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors"
         >
           <option value="all">All Statuses</option>
           <option value="pending">Pending</option>
@@ -732,7 +732,7 @@ export default function AdminOrdersPage() {
             type="date"
             value={dateFrom}
             onChange={(e) => setDateFrom(e.target.value)}
-            className="font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors [color-scheme:dark]"
+            className="font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors [color-scheme:dark]"
             placeholder="From"
           />
         </div>
@@ -743,7 +743,7 @@ export default function AdminOrdersPage() {
             type="date"
             value={dateTo}
             onChange={(e) => setDateTo(e.target.value)}
-            className="font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors [color-scheme:dark]"
+            className="font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors [color-scheme:dark]"
             placeholder="To"
           />
         </div>
@@ -754,7 +754,7 @@ export default function AdminOrdersPage() {
         {/* Export */}
         <button
           onClick={exportCSV}
-          className="font-gilroy text-small text-white/60 bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none hover:border-white/30 hover:text-white transition-colors flex items-center gap-2"
+          className="font-gilroy text-small text-white/60 bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none hover:border-white/30 hover:text-white transition-colors flex items-center gap-2"
         >
           <Download size={14} />
           Export
@@ -801,7 +801,7 @@ export default function AdminOrdersPage() {
       )}
 
       {/* Table Card */}
-      <div className="bg-[#1e293b] border border-white/10 rounded-xl overflow-hidden">
+      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
         {/* Card Header */}
         <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
           <p className="font-gilroy font-semibold text-white text-sm">
@@ -948,7 +948,7 @@ export default function AdminOrdersPage() {
                             <select
                               value={order.status}
                               onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                              className="font-gilroy text-xs text-white bg-[#0f172a] border border-white/10 rounded-md px-2 py-1.5 outline-none focus:border-white/30 transition-colors"
+                              className="font-gilroy text-xs text-white bg-black border border-white/10 rounded-md px-2 py-1.5 outline-none focus:border-white/30 transition-colors"
                             >
                               {["pending", "processing", "shipped", "delivered", "cancelled"].map(
                                 (s) => (

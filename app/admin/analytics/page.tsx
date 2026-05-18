@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Skeleton } from "@/components/admin/Skeleton";
@@ -57,7 +57,7 @@ const PIE_COLORS = [
 ];
 
 const CHART_TOOLTIP_STYLE = {
-  background: "#1e293b",
+  background: "#080808",
   border: "1px solid rgba(255,255,255,0.1)",
   borderRadius: "12px",
   fontFamily: "Gilroy",
@@ -459,14 +459,14 @@ export default function AnalyticsPage() {
                 type="date"
                 value={customFrom}
                 onChange={(e) => setCustomFrom(e.target.value)}
-                className="font-gilroy text-sm text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
               />
               <span className="font-gilroy text-white/40 text-sm">to</span>
               <input
                 type="date"
                 value={customTo}
                 onChange={(e) => setCustomTo(e.target.value)}
-                className="font-gilroy text-sm text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+                className="font-gilroy text-sm text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
               />
             </div>
           )}
@@ -479,7 +479,7 @@ export default function AnalyticsPage() {
           Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="bg-[#1e293b] border border-white/10 rounded-xl p-5"
+              className="bg-white/5 border border-white/10 rounded-xl p-5"
             >
               <Skeleton className="h-4 w-24 mb-3" />
               <Skeleton className="h-8 w-32 mb-2" />
@@ -522,7 +522,7 @@ export default function AnalyticsPage() {
 
       {/* EMPTY STATE */}
       {isEmpty && (
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl p-12 flex items-center justify-center">
+        <div className="bg-white/5 border border-white/10 rounded-xl p-12 flex items-center justify-center">
           <EmptyState
             icon={BarChart2}
             title="No orders in this period"
@@ -534,7 +534,7 @@ export default function AnalyticsPage() {
       {!isEmpty && (
         <>
           {/* REVENUE OVER TIME */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl mb-6">
+          <div className="bg-white/5 border border-white/10 rounded-xl mb-6">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
               <div>
                 <h2 className="font-gilroy font-semibold text-white text-base">
@@ -607,7 +607,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* ORDERS OVER TIME */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl mb-6">
+          <div className="bg-white/5 border border-white/10 rounded-xl mb-6">
             <div className="px-6 py-4 border-b border-white/[0.07] flex items-center justify-between">
               <h2 className="font-gilroy font-semibold text-white text-base">
                 Orders Over Time
@@ -647,7 +647,7 @@ export default function AnalyticsPage() {
           {/* ROW 2: Category Breakdown + Best Sellers */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* Category Breakdown */}
-            <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+            <div className="bg-white/5 border border-white/10 rounded-xl">
               <div className="px-6 py-4 border-b border-white/[0.07]">
                 <h2 className="font-gilroy font-semibold text-white text-base">
                   Category Breakdown
@@ -709,7 +709,7 @@ export default function AnalyticsPage() {
             </div>
 
             {/* Best Sellers */}
-            <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+            <div className="bg-white/5 border border-white/10 rounded-xl">
               <div className="px-6 py-4 border-b border-white/[0.07]">
                 <h2 className="font-gilroy font-semibold text-white text-base">
                   Best Sellers
@@ -796,7 +796,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* REVENUE BY DAY OF WEEK */}
-          <div className="bg-[#1e293b] border border-white/10 rounded-xl mb-6">
+          <div className="bg-white/5 border border-white/10 rounded-xl mb-6">
             <div className="px-6 py-4 border-b border-white/[0.07]">
               <h2 className="font-gilroy font-semibold text-white text-base">
                 Revenue by Day of Week
@@ -849,7 +849,7 @@ export default function AnalyticsPage() {
               Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="bg-[#1e293b] border border-white/10 rounded-xl p-5"
+                  className="bg-white/5 border border-white/10 rounded-xl p-5"
                 >
                   <Skeleton className="h-3 w-20 mb-3" />
                   <Skeleton className="h-6 w-16" />
@@ -908,7 +908,7 @@ function StatCard({
   };
 
   return (
-    <div className="bg-[#1e293b] border border-white/10 rounded-xl p-5">
+    <div className="bg-white/5 border border-white/10 rounded-xl p-5">
       <div className="flex items-start justify-between mb-3">
         <div className={`p-2 rounded-lg ${bgMap[accent]}`}>{icon}</div>
         <PctChange value={pct} />
@@ -933,7 +933,7 @@ function MiniMetricCard({
   muted?: boolean;
 }) {
   return (
-    <div className="bg-[#1e293b] border border-white/10 rounded-xl p-5">
+    <div className="bg-white/5 border border-white/10 rounded-xl p-5">
       <div className="font-gilroy text-xs text-white/40 mb-2">{label}</div>
       <div
         className={`font-gilroy text-xl font-bold mb-1 ${muted ? "text-white/30" : "text-white"}`}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -56,14 +56,14 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <span className="font-gilroy font-bold text-h2 text-white">FRAME</span>
           <p className="font-gilroy text-body text-white/50 mt-2">Admin Portal</p>
         </div>
 
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl p-8">
+        <div className="bg-white/5 border border-white/10 rounded-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="flex flex-col gap-1.5">
               <label className="font-gilroy font-semibold text-small text-white/70">Email</label>
@@ -73,7 +73,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@example.com"
                 required
-                className="font-gilroy text-body bg-[#0f172a] text-white border border-white/10 px-4 py-2.5 rounded-md outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors"
+                className="font-gilroy text-body bg-black text-white border border-white/10 px-4 py-2.5 rounded-md outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -82,9 +82,9 @@ export default function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="вЂўвЂўвЂўвЂўвЂўвЂўвЂўвЂў"
                 required
-                className="font-gilroy text-body bg-[#0f172a] text-white border border-white/10 px-4 py-2.5 rounded-md outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors"
+                className="font-gilroy text-body bg-black text-white border border-white/10 px-4 py-2.5 rounded-md outline-none placeholder:text-white/20 focus:border-brand-primary transition-colors"
               />
             </div>
             {error && (

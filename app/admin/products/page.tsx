@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
@@ -22,7 +22,7 @@ import {
 
 } from "lucide-react";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Types в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 interface Product {
   id: string;
@@ -50,7 +50,7 @@ const ALL_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "One Size"];
 const GRID_PAGE_SIZE = 12;
 const LIST_PAGE_SIZE = 10;
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 function StockBadge({ stock }: { stock: number }) {
   if (stock === 0)
@@ -78,30 +78,30 @@ function StockBadge({ stock }: { stock: number }) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
+// в”Ђв”Ђв”Ђ Main Page в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
 export default function AdminProductsPage() {
-  // ── Data ──
+  // в”Ђв”Ђ Data в”Ђв”Ђ
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ── View ──
+  // в”Ђв”Ђ View в”Ђв”Ђ
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  // ── Filters ──
+  // в”Ђв”Ђ Filters в”Ђв”Ђ
   const [search, setSearch] = useState("");
   const [catFilter, setCatFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
 
-  // ── Modals ──
+  // в”Ђв”Ђ Modals в”Ђв”Ђ
   const [addOpen, setAddOpen] = useState(false);
   const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [deleteProduct, setDeleteProduct] = useState<Product | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  // ── Form state ──
+  // в”Ђв”Ђ Form state в”Ђв”Ђ
   const [formName, setFormName] = useState("");
   const [formDesc, setFormDesc] = useState("");
   const [formPrice, setFormPrice] = useState("");
@@ -115,7 +115,7 @@ export default function AdminProductsPage() {
 
   const { toast } = useToast();
 
-  // ── Load ──
+  // в”Ђв”Ђ Load в”Ђв”Ђ
   const load = useCallback(async () => {
     const supabase = createClient();
     const { data, error } = await supabase
@@ -134,12 +134,12 @@ export default function AdminProductsPage() {
     load();
   }, [load]);
 
-  // ── Reset filter page on filter change ──
+  // в”Ђв”Ђ Reset filter page on filter change в”Ђв”Ђ
   useEffect(() => {
     setPage(1);
   }, [search, catFilter, stockFilter, sort, view]);
 
-  // ── Form helpers ──
+  // в”Ђв”Ђ Form helpers в”Ђв”Ђ
   function resetForm() {
     setFormName("");
     setFormDesc("");
@@ -194,7 +194,7 @@ export default function AdminProductsPage() {
     );
   }
 
-  // ── Submit (add or edit) ──
+  // в”Ђв”Ђ Submit (add or edit) в”Ђв”Ђ
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError("");
@@ -255,7 +255,7 @@ export default function AdminProductsPage() {
     setFormSaving(false);
   }
 
-  // ── Delete ──
+  // в”Ђв”Ђ Delete в”Ђв”Ђ
   async function handleDelete() {
     if (!deleteProduct) return;
     setDeleting(true);
@@ -274,7 +274,7 @@ export default function AdminProductsPage() {
     setDeleting(false);
   }
 
-  // ── Filtering ──
+  // в”Ђв”Ђ Filtering в”Ђв”Ђ
   const filtered = useMemo(() => {
     let r = products;
     if (search)
@@ -302,17 +302,17 @@ export default function AdminProductsPage() {
     return r;
   }, [products, search, catFilter, stockFilter, sort]);
 
-  // ── Pagination ──
+  // в”Ђв”Ђ Pagination в”Ђв”Ђ
   const pageSize = view === "grid" ? GRID_PAGE_SIZE : LIST_PAGE_SIZE;
   const totalPages = Math.ceil(filtered.length / pageSize);
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize);
 
-  // ── Stats ──
+  // в”Ђв”Ђ Stats в”Ђв”Ђ
   const totalActive = products.filter((p) => p.is_active !== false).length;
   const totalLowStock = products.filter((p) => p.stock > 0 && p.stock < 5).length;
   const totalOutOfStock = products.filter((p) => p.stock === 0).length;
 
-  // ── Shared form JSX ──
+  // в”Ђв”Ђ Shared form JSX в”Ђв”Ђ
   const formContent = (
     <form onSubmit={handleFormSubmit} className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
@@ -333,7 +333,7 @@ export default function AdminProductsPage() {
             value={formName}
             onChange={(e) => setFormName(e.target.value)}
             placeholder="e.g. Classic White Tee"
-            className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+            className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
           />
         </div>
 
@@ -347,7 +347,7 @@ export default function AdminProductsPage() {
             onChange={(e) => setFormDesc(e.target.value)}
             rows={4}
             placeholder="Product description..."
-            className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors resize-none"
+            className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors resize-none"
           />
         </div>
 
@@ -364,7 +364,7 @@ export default function AdminProductsPage() {
               value={formPrice}
               onChange={(e) => setFormPrice(e.target.value)}
               placeholder="0.00"
-              className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+              className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
             />
           </div>
           <div className="space-y-1.5">
@@ -374,7 +374,7 @@ export default function AdminProductsPage() {
             <select
               value={formCategory}
               onChange={(e) => setFormCategory(e.target.value)}
-              className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors"
+              className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors"
             >
               {CATEGORIES.map((c) => (
                 <option key={c} value={c}>
@@ -397,7 +397,7 @@ export default function AdminProductsPage() {
               value={formStock}
               onChange={(e) => setFormStock(e.target.value)}
               placeholder="0"
-              className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+              className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
             />
           </div>
           <div className="space-y-1.5">
@@ -409,7 +409,7 @@ export default function AdminProductsPage() {
               value={formImageUrl}
               onChange={(e) => setFormImageUrl(e.target.value)}
               placeholder="https://..."
-              className="w-full font-gilroy text-small text-white bg-[#0f172a] border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+              className="w-full font-gilroy text-small text-white bg-black border border-white/10 rounded-md px-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
             />
           </div>
         </div>
@@ -417,7 +417,7 @@ export default function AdminProductsPage() {
         {/* Image preview */}
         {formImageUrl.trim() && (
           <div className="flex items-center gap-3">
-            <div className="w-20 h-20 rounded-lg overflow-hidden bg-[#0f172a] border border-white/10 flex-shrink-0">
+            <div className="w-20 h-20 rounded-lg overflow-hidden bg-black border border-white/10 flex-shrink-0">
               <img
                 src={formImageUrl}
                 alt="Preview"
@@ -502,11 +502,11 @@ export default function AdminProductsPage() {
     </form>
   );
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
   return (
     <div className="p-6 lg:p-8">
-      {/* ── Header ── */}
+      {/* в”Ђв”Ђ Header в”Ђв”Ђ */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="font-gilroy font-bold text-h2 text-white">Products</h1>
@@ -520,7 +520,7 @@ export default function AdminProductsPage() {
         </Button>
       </div>
 
-      {/* ── Stats row ── */}
+      {/* в”Ђв”Ђ Stats row в”Ђв”Ђ */}
       <div className="flex flex-wrap gap-2 mb-5">
         {[
           { label: "Total Products", value: products.length, color: "text-white/70" },
@@ -530,7 +530,7 @@ export default function AdminProductsPage() {
         ].map((s) => (
           <div
             key={s.label}
-            className="flex items-center gap-2 px-3 py-1.5 bg-[#1e293b] border border-white/10 rounded-lg"
+            className="flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg"
           >
             <span className={`font-gilroy font-bold text-small ${s.color}`}>
               {s.value}
@@ -540,7 +540,7 @@ export default function AdminProductsPage() {
         ))}
       </div>
 
-      {/* ── Filter bar ── */}
+      {/* в”Ђв”Ђ Filter bar в”Ђв”Ђ */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         {/* Search */}
         <div className="relative flex-1 min-w-[200px] max-w-xs">
@@ -550,7 +550,7 @@ export default function AdminProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="w-full font-gilroy text-small text-white bg-[#1e293b] border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
+            className="w-full font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md pl-9 pr-3 py-2.5 outline-none placeholder:text-white/25 focus:border-white/30 transition-colors"
           />
         </div>
 
@@ -559,7 +559,7 @@ export default function AdminProductsPage() {
           <select
             value={catFilter}
             onChange={(e) => setCatFilter(e.target.value)}
-            className="font-gilroy text-small text-white bg-[#1e293b] border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
+            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
           >
             <option value="all">All Categories</option>
             {CATEGORIES.map((c) => (
@@ -576,11 +576,11 @@ export default function AdminProductsPage() {
           <select
             value={stockFilter}
             onChange={(e) => setStockFilter(e.target.value)}
-            className="font-gilroy text-small text-white bg-[#1e293b] border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
+            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
           >
             <option value="all">All Stock</option>
             <option value="instock">In Stock (&gt;10)</option>
-            <option value="low">Low Stock (1–10)</option>
+            <option value="low">Low Stock (1вЂ“10)</option>
             <option value="out">Out of Stock</option>
           </select>
           <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
@@ -591,20 +591,20 @@ export default function AdminProductsPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="font-gilroy text-small text-white bg-[#1e293b] border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
+            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 pr-8 outline-none focus:border-white/30 transition-colors appearance-none"
           >
             <option value="newest">Newest</option>
-            <option value="name-asc">Name A–Z</option>
-            <option value="name-desc">Name Z–A</option>
-            <option value="price-asc">Price Low–High</option>
-            <option value="price-desc">Price High–Low</option>
-            <option value="stock-asc">Stock Low–High</option>
+            <option value="name-asc">Name AвЂ“Z</option>
+            <option value="name-desc">Name ZвЂ“A</option>
+            <option value="price-asc">Price LowвЂ“High</option>
+            <option value="price-desc">Price HighвЂ“Low</option>
+            <option value="stock-asc">Stock LowвЂ“High</option>
           </select>
           <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
         </div>
 
         {/* View toggle */}
-        <div className="flex items-center bg-[#1e293b] border border-white/10 rounded-md p-1 ml-auto">
+        <div className="flex items-center bg-white/5 border border-white/10 rounded-md p-1 ml-auto">
           <button
             onClick={() => setView("grid")}
             className={`p-1.5 rounded transition-colors ${
@@ -624,14 +624,14 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      {/* ── Content ── */}
+      {/* в”Ђв”Ђ Content в”Ђв”Ђ */}
       {loading ? (
         /* Loading skeletons */
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className="bg-[#1e293b] rounded-xl overflow-hidden animate-pulse"
+              className="bg-white/5 rounded-xl overflow-hidden animate-pulse"
             >
               <div className="aspect-square bg-white/5" />
               <div className="p-3.5 space-y-2">
@@ -643,7 +643,7 @@ export default function AdminProductsPage() {
           ))}
         </div>
       ) : filtered.length === 0 ? (
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl">
+        <div className="bg-white/5 border border-white/10 rounded-xl">
           <EmptyState
             icon={Package}
             title="No products found"
@@ -663,15 +663,15 @@ export default function AdminProductsPage() {
           />
         </div>
       ) : view === "grid" ? (
-        /* ── Grid view ── */
+        /* в”Ђв”Ђ Grid view в”Ђв”Ђ */
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {paginated.map((product) => (
             <div
               key={product.id}
-              className="bg-[#1e293b] border border-white/10 rounded-xl overflow-hidden group hover:border-white/20 transition-all"
+              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden group hover:border-white/20 transition-all"
             >
               {/* Image */}
-              <div className="aspect-square bg-[#0f172a] overflow-hidden relative">
+              <div className="aspect-square bg-black overflow-hidden relative">
                 {product.image_url ? (
                   <img
                     src={product.image_url}
@@ -725,8 +725,8 @@ export default function AdminProductsPage() {
           ))}
         </div>
       ) : (
-        /* ── List view ── */
-        <div className="bg-[#1e293b] border border-white/10 rounded-xl overflow-hidden">
+        /* в”Ђв”Ђ List view в”Ђв”Ђ */
+        <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[800px]">
               <thead>
@@ -752,7 +752,7 @@ export default function AdminProductsPage() {
                     {/* Product */}
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-md overflow-hidden bg-[#0f172a] flex-shrink-0">
+                        <div className="w-10 h-10 rounded-md overflow-hidden bg-black flex-shrink-0">
                           {product.image_url ? (
                             <img
                               src={product.image_url}
@@ -807,7 +807,7 @@ export default function AdminProductsPage() {
                           </span>
                         )}
                         {(!product.sizes || product.sizes.length === 0) && (
-                          <span className="font-gilroy text-xs text-white/20">—</span>
+                          <span className="font-gilroy text-xs text-white/20">вЂ”</span>
                         )}
                       </div>
                     </td>
@@ -852,11 +852,11 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* ── Pagination ── */}
+      {/* в”Ђв”Ђ Pagination в”Ђв”Ђ */}
       {!loading && totalPages > 1 && (
         <div className="flex items-center justify-between mt-5">
           <p className="font-gilroy text-small text-white/40">
-            Showing {(page - 1) * pageSize + 1}–
+            Showing {(page - 1) * pageSize + 1}вЂ“
             {Math.min(page * pageSize, filtered.length)} of {filtered.length}
           </p>
           <div className="flex items-center gap-1">
@@ -880,7 +880,7 @@ export default function AdminProductsPage() {
               .map((p, i) =>
                 p === "..." ? (
                   <span key={`ellipsis-${i}`} className="px-2 font-gilroy text-small text-white/20">
-                    …
+                    вЂ¦
                   </span>
                 ) : (
                   <button
@@ -907,12 +907,12 @@ export default function AdminProductsPage() {
         </div>
       )}
 
-      {/* ── Add SlideOver ── */}
+      {/* в”Ђв”Ђ Add SlideOver в”Ђв”Ђ */}
       <SlideOver open={addOpen} onClose={closeAdd} title="Add Product" width="xl">
         {formContent}
       </SlideOver>
 
-      {/* ── Edit SlideOver ── */}
+      {/* в”Ђв”Ђ Edit SlideOver в”Ђв”Ђ */}
       <SlideOver
         open={editProduct !== null}
         onClose={closeEdit}
@@ -922,7 +922,7 @@ export default function AdminProductsPage() {
         {formContent}
       </SlideOver>
 
-      {/* ── Delete Modal ── */}
+      {/* в”Ђв”Ђ Delete Modal в”Ђв”Ђ */}
       <Modal
         open={deleteProduct !== null}
         onClose={closeDelete}
