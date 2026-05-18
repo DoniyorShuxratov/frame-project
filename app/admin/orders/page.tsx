@@ -2,15 +2,14 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { Skeleton, SkeletonRow } from "@/components/admin/Skeleton";
+import { SkeletonRow } from "@/components/admin/Skeleton";
 import { SlideOver } from "@/components/admin/SlideOver";
 import { EmptyState } from "@/components/admin/EmptyState";
 import { useToast } from "@/components/admin/Toast";
-import { Button } from "@/components/Button";
 import {
-  Search, Filter, Download, Eye, ChevronLeft, ChevronRight,
-  ShoppingBag, Calendar, ArrowUpDown, ArrowUp, ArrowDown, CheckSquare, Square,
-  Package, User, Clock, CheckCircle, Truck, XCircle,
+  Search, Download, Eye, ChevronLeft, ChevronRight,
+  ShoppingBag, ArrowUpDown, ArrowUp, ArrowDown, CheckSquare, Square,
+  Package, Clock, CheckCircle, Truck, XCircle,
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────

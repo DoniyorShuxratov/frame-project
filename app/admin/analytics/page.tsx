@@ -17,8 +17,6 @@ import {
   Pie,
   Cell,
   Legend,
-  ComposedChart,
-  Line,
 } from "recharts";
 import {
   BarChart2,
@@ -30,7 +28,6 @@ import {
   RefreshCw,
   Calendar,
 } from "lucide-react";
-import { Button } from "@/components/Button";
 
 interface Order {
   id: string;
@@ -221,7 +218,6 @@ function PctChange({ value }: { value: number | null }) {
 export default function AnalyticsPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [items, setItems] = useState<OrderItem[]>([]);
-  const [customerCount, setCustomerCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState<DateRange>("30d");
   const [customFrom, setCustomFrom] = useState("");
@@ -232,7 +228,7 @@ export default function AnalyticsPage() {
     setLoading(true);
     try {
       const supabase = createClient();
-      const [ordersRes, itemsRes, customerRes] = await Promise.all([
+      const [ordersRes, itemsRes] = await Promise.all([
         supabase
           .from("orders")
           .select("*")
@@ -240,14 +236,9 @@ export default function AnalyticsPage() {
         supabase
           .from("order_items")
           .select("order_id, quantity, price, products(name, category)"),
-        supabase
-          .from("profiles")
-          .select("*", { count: "exact", head: true })
-          .eq("role", "customer"),
       ]);
       setOrders((ordersRes.data as Order[]) || []);
       setItems((itemsRes.data as unknown as OrderItem[]) || []);
-      setCustomerCount(customerRes.count || 0);
     } catch {
       // silent
     } finally {

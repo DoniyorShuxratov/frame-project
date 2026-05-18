@@ -17,8 +17,7 @@ import {
   AlertTriangle,
   Clock,
   CheckCircle,
-  ArrowUpRight,
-  ArrowDownRight,
+
 } from "lucide-react";
 import {
   AreaChart,
@@ -547,11 +546,6 @@ export default function AdminDashboardPage() {
   }
 
   function openOrderDetail(order: Order) {
-    const items = orderItems.filter((item) => {
-      // We don't have order_id on items from this fetch; use a naive approach
-      // In production, re-fetch items for this specific order
-      return true;
-    });
     setSelectedOrder(order);
     setSelectedOrderItems(orderItems.slice(0, 5)); // fallback: show first items
     setSlideOpen(true);

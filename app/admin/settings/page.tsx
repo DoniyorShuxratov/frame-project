@@ -12,10 +12,7 @@ import {
   Shield,
   Save,
   AlertTriangle,
-  Check,
   Package,
-  ShoppingBag,
-  Moon,
 } from "lucide-react";
 
 export default function SettingsPage() {
@@ -84,7 +81,7 @@ export default function SettingsPage() {
         if (profile?.username) {
           setDisplayName(profile.username);
         }
-      } catch (err) {
+      } catch {
         // Silently fail — profile load is non-critical on mount
       }
     };
@@ -101,8 +98,8 @@ export default function SettingsPage() {
         localStorage.setItem("frame-store-description", storeDesc);
       }
       toast({ title: "Saved", variant: "success" });
-    } catch (err: any) {
-      toast({ title: "Error", description: err?.message ?? "Failed to save", variant: "error" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to save", variant: "error" });
     } finally {
       setSavingStore(false);
     }
@@ -126,8 +123,8 @@ export default function SettingsPage() {
       if (error) throw error;
 
       toast({ title: "Saved", variant: "success" });
-    } catch (err: any) {
-      toast({ title: "Error", description: err?.message ?? "Failed to update profile", variant: "error" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to update profile", variant: "error" });
     } finally {
       setSavingProfile(false);
     }
@@ -143,8 +140,8 @@ export default function SettingsPage() {
         localStorage.setItem("frame-notif-new-customer", notifNewCustomer ? "true" : "false");
       }
       toast({ title: "Saved", variant: "success" });
-    } catch (err: any) {
-      toast({ title: "Error", description: err?.message ?? "Failed to save", variant: "error" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to save", variant: "error" });
     } finally {
       setSavingNotifs(false);
     }
@@ -158,8 +155,8 @@ export default function SettingsPage() {
         localStorage.setItem("frame-low-stock-threshold", String(lowStockThreshold));
       }
       toast({ title: "Saved", variant: "success" });
-    } catch (err: any) {
-      toast({ title: "Error", description: err?.message ?? "Failed to save", variant: "error" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to save", variant: "error" });
     } finally {
       setSavingInventory(false);
     }
@@ -174,8 +171,8 @@ export default function SettingsPage() {
       const supabase = createClient();
       await supabase.auth.signOut();
       router.push("/admin/login");
-    } catch (err: any) {
-      toast({ title: "Error", description: err?.message ?? "Failed to sign out", variant: "error" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: err instanceof Error ? err.message : "Failed to sign out", variant: "error" });
     }
   };
 
@@ -212,7 +209,7 @@ export default function SettingsPage() {
               <div>
                 <p className="font-gilroy font-semibold text-body text-white">Store Settings</p>
                 <p className="font-gilroy text-small text-white/40">
-                  Configure your store's public info
+                  Configure your store&apos;s public info
                 </p>
               </div>
             </div>

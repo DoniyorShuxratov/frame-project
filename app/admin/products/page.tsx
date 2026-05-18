@@ -2,7 +2,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
-import { Skeleton } from "@/components/admin/Skeleton";
 import { Modal } from "@/components/admin/Modal";
 import { SlideOver } from "@/components/admin/SlideOver";
 import { EmptyState } from "@/components/admin/EmptyState";
@@ -20,7 +19,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Image as ImageIcon,
+
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
