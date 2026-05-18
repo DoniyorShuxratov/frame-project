@@ -1,5 +1,5 @@
 ﻿"use client";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { StatusBadge } from "@/components/admin/StatusBadge";
 import { SkeletonRow } from "@/components/admin/Skeleton";
@@ -7,7 +7,7 @@ import { SlideOver } from "@/components/admin/SlideOver";
 import { EmptyState } from "@/components/admin/EmptyState";
 import { useToast } from "@/components/admin/Toast";
 import {
-  Search, Download, Eye, ChevronLeft, ChevronRight,
+  Search, Download, Eye, ChevronLeft, ChevronRight, ChevronDown,
   ShoppingBag, ArrowUpDown, ArrowUp, ArrowDown, CheckSquare, Square,
   Package, Clock, CheckCircle, Truck, XCircle,
 } from "lucide-react";
@@ -44,6 +44,14 @@ const STATUS_INDEX: Record<string, number> = {
   shipped: 2,
   delivered: 3,
   cancelled: -1,
+};
+
+const STATUS_CONFIG: Record<string, { color: string; label: string }> = {
+  pending:    { color: "#F59E0B", label: "Pending" },
+  processing: { color: "#3B82F6", label: "Processing" },
+  shipped:    { color: "#8B5CF6", label: "Shipped" },
+  delivered:  { color: "#10B981", label: "Delivered" },
+  cancelled:  { color: "#EF4444", label: "Cancelled" },
 };
 
 // в”Ђв”Ђв”Ђ Helpers в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
@@ -150,6 +158,92 @@ function OrderTimeline({ order }: { order: Order }) {
 
 // в”Ђв”Ђв”Ђ Slide-Over Content в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
 
+function StatusDropdown({
+  value,
+  onChange,
+  compact = false,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  compact?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const cfg = STATUS_CONFIG[value] ?? { color: "#9CA3AF", label: value };
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <style>{`
+        @keyframes statusDropdownIn {
+          from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .status-dropdown-menu { animation: statusDropdownIn 150ms ease-out; }
+      `}</style>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          background: "#1E2A3A",
+          border: `1px solid ${open ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.1)"}`,
+          borderRadius: 10,
+          transition: "border-color 150ms",
+        }}
+        className={[
+          "flex items-center gap-2 font-gilroy font-medium text-white outline-none",
+          compact ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm w-full",
+        ].join(" ")}
+      >
+        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: cfg.color }} />
+        <span className="flex-1 text-left capitalize">{cfg.label}</span>
+        <ChevronDown
+          size={compact ? 12 : 14}
+          className={["text-white/40 transition-transform duration-150", open ? "rotate-180" : ""].join(" ")}
+        />
+      </button>
+      {open && (
+        <div
+          className="status-dropdown-menu absolute z-50 mt-1 py-1 min-w-[140px]"
+          style={{
+            background: "#1E2A3A",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: 10,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
+            right: compact ? 0 : undefined,
+            left: compact ? undefined : 0,
+          }}
+        >
+          {Object.entries(STATUS_CONFIG).map(([key, { color, label }]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => { onChange(key); setOpen(false); }}
+              className={[
+                "flex items-center gap-2.5 w-full px-3 py-2 font-gilroy text-sm",
+                "hover:bg-white/[0.07] transition-colors",
+                value === key ? "text-white" : "text-white/70",
+              ].join(" ")}
+            >
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+              <span className="capitalize">{label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function OrderDetail({
   order,
   onStatusChange,
@@ -157,6 +251,8 @@ function OrderDetail({
   order: Order;
   onStatusChange: (id: string, status: string) => void;
 }) {
+  const [pendingStatus, setPendingStatus] = useState(order.status);
+  useEffect(() => { setPendingStatus(order.status); }, [order.status]);
   const displayName =
     order.profile?.username || `Customer ${order.customer_id?.slice(0, 6) ?? ""}`;
 
@@ -185,17 +281,23 @@ function OrderDetail({
           <p className="font-gilroy text-xs text-white/40 uppercase tracking-wider mb-2">
             Update Status
           </p>
-          <select
-            value={order.status}
-            onChange={(e) => onStatusChange(order.id, e.target.value)}
-            className="font-gilroy text-small text-white bg-white/5 border border-white/10 rounded-md px-3 py-2.5 outline-none focus:border-white/30 transition-colors w-full"
-          >
-            {["pending", "processing", "shipped", "delivered", "cancelled"].map((s) => (
-              <option key={s} value={s} className="capitalize">
-                {s}
-              </option>
-            ))}
-          </select>
+          <StatusDropdown value={pendingStatus} onChange={setPendingStatus} />
+          {pendingStatus !== order.status && (
+            <button
+              type="button"
+              onClick={() => onStatusChange(order.id, pendingStatus)}
+              className="mt-2 w-full font-gilroy font-medium text-sm text-white rounded-lg px-4 py-2.5"
+              style={{ backgroundColor: "#1B9CFC", transition: "box-shadow 150ms" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 0 2px rgba(27,156,252,0.3)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
+              }}
+            >
+              Confirm Status Change
+            </button>
+          )}
         </div>
       </div>
 
@@ -939,25 +1041,27 @@ export default function AdminOrdersPage() {
                                 setSelectedOrder(order);
                                 setSlideOpen(true);
                               }}
-                              className="font-gilroy text-xs text-white/50 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-md px-2.5 py-1.5 transition-colors flex items-center gap-1 whitespace-nowrap"
+                              className="font-gilroy text-xs text-white rounded-lg px-3 py-1.5 flex items-center gap-1 whitespace-nowrap"
+                              style={{
+                                border: "1px solid rgba(255,255,255,0.15)",
+                                transition: "background-color 150ms, box-shadow 150ms",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.05)";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "";
+                              }}
                             >
                               <Eye size={12} />
                               View
                             </button>
 
-                            <select
+                            <StatusDropdown
                               value={order.status}
-                              onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                              className="font-gilroy text-xs text-white bg-black border border-white/10 rounded-md px-2 py-1.5 outline-none focus:border-white/30 transition-colors"
-                            >
-                              {["pending", "processing", "shipped", "delivered", "cancelled"].map(
-                                (s) => (
-                                  <option key={s} value={s} className="capitalize">
-                                    {s}
-                                  </option>
-                                )
-                              )}
-                            </select>
+                              onChange={(v) => handleStatusChange(order.id, v)}
+                              compact
+                            />
                           </div>
                         </td>
                       </tr>
