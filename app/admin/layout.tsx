@@ -165,8 +165,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg font-gilroy font-medium text-small transition-all",
                 collapsed && !mobile ? "justify-center" : "",
                 active
-                  ? "bg-brand-primary text-white"
-                  : "text-white/55 hover:bg-white/[0.08] hover:text-white",
+                  ? "bg-white/5 border border-white/10 text-white"
+                  : "border border-transparent text-white/55 hover:bg-white/[0.08] hover:text-white",
               ].join(" ")}
             >
               <Icon className="w-[18px] h-[18px] flex-shrink-0" />
